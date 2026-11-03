@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#cc0000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="電験機械過去問">
+<link rel="manifest" href="manifest.json">
+<title>電験三種 機械 過去問トレーニング | KIKAI OVERCOME</title>
+<style>
+  /* 色の定義（BABYMETAL風 黒×赤） */
+  :root{--bk:#0a0a0a;--card:#161616;--bd:#2c2c2c;--red:#cc0000;--rb:#ff1a1a;--rd:#7a0000;--tx:#f0f0f0;--dim:#8f8f8f;--gd:#e0b84c;--sv:#a8a8a8}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bk);color:var(--tx);font-family:"Noto Sans JP","Yu Gothic",sans-serif;line-height:1.7;font-size:17px}
+  a{color:var(--rb)}
+  header{text-align:center;padding:1.6rem 1rem 1rem;background:radial-gradient(ellipse at 50% 0,rgba(204,0,0,.4),transparent 70%);border-bottom:2px solid var(--red);position:relative}
+  header h1{font-size:clamp(1.4rem,4.6vw,2.4rem);font-weight:900;letter-spacing:.04em}
+  header h1 em{font-style:normal;color:var(--rb);text-shadow:0 0 20px var(--red)}
+  header .sub{color:var(--gd);font-weight:700;font-size:.95rem}
+  header .back{position:absolute;left:1rem;top:1rem;font-size:.8rem;text-decoration:none;border:1px solid var(--rd);padding:.2rem .6rem;border-radius:3px}
+  nav{display:flex;gap:.3rem;justify-content:center;flex-wrap:wrap;padding:.6rem;background:#000;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+  nav button{background:#1a1a1a;border:1px solid var(--rd);color:var(--tx);padding:.5rem .9rem;font-size:.95rem}
+  nav button.on{background:var(--red);box-shadow:0 0 12px var(--red)}
+  main{max-width:1150px;margin:auto;padding:1rem}
+  section.tab{display:none}section.tab.on{display:block}
+  .panel{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--red);border-radius:4px;padding:1.1rem;margin-bottom:1.1rem}
+  .panel h2{font-size:1.12rem;margin-bottom:.7rem;color:var(--rb);letter-spacing:.05em}
+  .panel h3{font-size:1rem;margin:.6rem 0 .3rem;color:var(--gd)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
+  .stat{background:#000;border:1px solid var(--rd);padding:.7rem;text-align:center;border-radius:4px}
+  .stat b{display:block;font-size:1.9rem;color:var(--rb);text-shadow:0 0 12px rgba(204,0,0,.6);line-height:1.2}
+  .stat span{font-size:.78rem;color:var(--dim)}
+  .hero{text-align:center;padding:1rem;background:linear-gradient(135deg,#1a0000,#000 60%);border:1px solid var(--red);border-radius:6px;margin-bottom:1.1rem;box-shadow:0 0 25px rgba(204,0,0,.25)}
+  .hero .cd{font-size:clamp(2.6rem,10vw,4.5rem);font-weight:900;color:var(--rb);text-shadow:0 0 25px var(--red);line-height:1.1}
+  .hero .ph{color:var(--gd);font-weight:700;margin-top:.3rem}
+  .bar{height:16px;background:#000;border:1px solid var(--rd);border-radius:8px;overflow:hidden;margin:.35rem 0}
+  .bar div{height:100%;background:linear-gradient(90deg,var(--rd),var(--rb));width:0;transition:width .8s}
+  label{display:block;font-size:.8rem;color:var(--dim);margin-top:.4rem}
+  input,select,textarea{width:100%;background:#000;color:var(--tx);border:1px solid var(--rd);padding:.5rem;border-radius:3px;font-size:1rem;font-family:inherit}
+  button{background:var(--red);color:#fff;border:0;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;border-radius:3px;font-size:1rem;font-family:inherit}
+  button:hover{background:var(--rb)}
+  button.sub{background:#2a2a2a;border:1px solid var(--rd)}button.sub:hover{background:var(--rd)}
+  button:disabled{opacity:.4;cursor:default}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+  @media(max-width:850px){.two,.three{grid-template-columns:1fr}}
+  .slot{background:#000;border:1px solid var(--bd);border-top:3px solid var(--red);border-radius:4px;padding:.9rem;display:flex;flex-direction:column;gap:.4rem}
+  .slot h3{margin:0;color:var(--tx)}
+  .slot .n{font-size:2rem;font-weight:900;color:var(--rb)}
+  .slot small{color:var(--dim);font-size:.82rem;flex:1}
+  .chip{display:inline-block;padding:.05rem .5rem;border-radius:10px;font-size:.75rem;border:1px solid var(--rd);margin-right:.25rem;background:#000;white-space:nowrap}
+  .chip.t暗記{border-color:#b04ad0;color:#e2a8f5}.chip.t計算{border-color:var(--rb);color:#ff8080}.chip.t応用{border-color:var(--gd);color:var(--gd)}
+  .phase{padding:.45rem .7rem;border-left:3px solid var(--bd);margin:.3rem 0;font-size:.9rem}
+  .phase.now{border-left-color:var(--rb);background:rgba(204,0,0,.15);font-weight:700}
+  .phase.past{color:var(--dim)}
+  /* 年度マップ */
+  .mapwrap{overflow-x:auto}
+  table.map{border-collapse:separate;border-spacing:3px;font-size:.78rem;min-width:760px}
+  table.map th{color:var(--dim);font-weight:400;padding:0 2px}
+  table.map th.y{text-align:left;color:var(--tx);font-weight:700;white-space:nowrap;padding-right:6px}
+  table.map td.c{width:30px;height:26px;background:#1d1d1d;border-radius:3px;text-align:center;cursor:pointer;font-weight:700;color:#000;position:relative}
+  table.map td.c:hover{outline:2px solid #fff}
+  table.map td.sep{width:6px}
+  table.map td.sc{white-space:nowrap;padding-left:6px;color:var(--dim)}
+  table.map td.sc b{color:var(--rb)}table.map td.sc b.pass{color:var(--gd)}
+  .g0{background:var(--rb)!important;box-shadow:0 0 6px var(--red);color:#fff!important}
+  .g1{background:#8a0000!important;color:#fff!important}
+  .g2{background:var(--sv)!important}
+  .g3{background:var(--gd)!important}
+  td.c.due::after{content:"";position:absolute;top:2px;right:2px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 5px #fff}
+  .legend span{display:inline-block;margin-right:.8rem;font-size:.8rem}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:3px;background:#1d1d1d}
+  /* リスト */
+  .item{padding:.6rem .4rem;border-bottom:1px solid var(--bd);display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+  .item .grow{flex:1;min-width:200px}
+  .item small{color:var(--dim)}
+  .memo{background:#1a0a0a;border-left:3px solid var(--gd);padding:.4rem .6rem;margin:.4rem 0;font-size:.9rem;white-space:pre-wrap}
+  .steps{display:flex;gap:3px;margin-top:.2rem}.steps i{width:22px;height:8px;background:#2a2a2a;border-radius:2px}.steps i.on{background:var(--gd)}
+  .tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+  .tbl th,.tbl td{padding:.4rem;border-bottom:1px solid var(--bd);text-align:left}
+  .tbl th{color:var(--dim);font-weight:400}
+  .mini{height:8px;background:#000;border:1px solid var(--bd);border-radius:4px;overflow:hidden;min-width:80px}
+  .mini div{height:100%;background:var(--rb)}
+  canvas{width:100%;height:200px;background:#000;border:1px solid var(--bd);border-radius:4px}
+  /* モーダル */
+  #modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:flex-start;justify-content:center;z-index:20;overflow-y:auto;padding:1rem}
+  #modal.on{display:flex}
+  #modal .box{background:var(--card);border:1px solid var(--red);box-shadow:0 0 40px rgba(204,0,0,.4);border-radius:6px;max-width:680px;width:100%;padding:1.2rem;margin-top:2vh}
+  #modal .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;color:var(--dim);font-size:.85rem}
+  .qtitle{font-size:1.35rem;font-weight:900;color:var(--rb)}
+  .qtext{background:#000;border:1px solid var(--bd);padding:.8rem;border-radius:4px;margin:.6rem 0;font-size:1.05rem}
+  .ans{background:#0f0f0f;border:1px solid var(--gd);padding:.8rem;border-radius:4px;margin:.6rem 0}
+  .gbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-top:.6rem}
+  .gbtns button{padding:.7rem .2rem;font-size:.95rem;line-height:1.3}
+  .gbtns button b{display:block;font-size:1.4rem}
+  .gb0{background:#3a0000;border:1px solid var(--rb)}.gb1{background:#2a1010;border:1px solid #8a0000}
+  .gb2{background:#2a2a2a;border:1px solid var(--sv)}.gb3{background:#2a2410;border:1px solid var(--gd)}
+  .gbtns button.sug{box-shadow:0 0 12px #fff;outline:2px solid #fff}
+  .ok{color:var(--gd);font-weight:900}.ng{color:var(--rb);font-weight:900}
+  #toast{position:fixed;top:1rem;left:50%;transform:translate(-50%,-250%);background:linear-gradient(135deg,var(--rd),var(--red));padding:.9rem 1.8rem;border-radius:6px;font-weight:700;z-index:30;transition:.5s;box-shadow:0 0 30px var(--red);text-align:center}
+  #toast.show{transform:translate(-50%,0)}
+  .errbox{background:#2a0000;border:2px solid var(--rb);color:#fff;padding:.6rem .9rem;border-radius:4px;margin-top:.5rem;font-weight:700;display:none;box-shadow:0 0 18px rgba(255,26,26,.55)}
+  .errbox.on{display:block;animation:pulse .35s ease}
+  @keyframes pulse{0%{transform:scale(.98)}50%{transform:scale(1.01)}100%{transform:scale(1)}}
+  .fbar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;align-items:center}
+  .fbtn{background:#1a1a1a;border:1px solid var(--rd);color:var(--tx);padding:.35rem .8rem;font-size:.86rem;border-radius:16px}
+  .fbtn.on{background:var(--red);color:#fff;box-shadow:0 0 10px var(--red)}
+  #timer{font-size:2.4rem;font-weight:900;color:var(--rb);text-shadow:0 0 15px var(--red);font-variant-numeric:tabular-nums}
+  footer{text-align:center;color:var(--dim);padding:1.5rem;font-size:.8rem}
+  /* スマホ・外出先向け最適化 */
+  @media(max-width:650px){
+    html,body{overflow-x:hidden;width:100%}
+    body{padding-bottom:74px;font-size:15px}
+    main{padding:.6rem;width:100%;max-width:100vw}
+    header{padding:1rem .6rem .8rem}
+    header .back{position:static;display:inline-block;margin-bottom:.3rem}
+    nav#nav{position:fixed;bottom:0;top:auto;left:0;right:0;z-index:25;background:rgba(10,10,10,.96);border-top:2px solid var(--red);border-bottom:0;padding:.35rem .2rem calc(.35rem + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+    nav#nav button{padding:.4rem .05rem;font-size:.68rem;border-radius:4px;text-align:center;white-space:nowrap;overflow:hidden}
+    .panel{padding:.8rem;margin-bottom:.8rem;max-width:100%;overflow-x:hidden}
+    .row{grid-template-columns:1fr;gap:.45rem}
+    .stats{grid-template-columns:repeat(2,1fr);gap:.45rem}
+    .stat{padding:.55rem .3rem}
+    .stat b{font-size:1.45rem}
+    .gbtns{grid-template-columns:repeat(2,1fr);gap:.45rem}
+    .gbtns button{padding:.8rem .3rem;font-size:.95rem}
+    .item .grow{min-width:140px}
+    input,select,textarea{font-size:16px;padding:.5rem;max-width:100%}
+    #modal{padding:.35rem}
+    #modal .box{padding:.85rem;margin-top:.5vh}
+  }
+  .qrbox{background:#fff;padding:12px;border-radius:8px;display:inline-block;border:3px solid var(--red);box-shadow:0 0 20px rgba(204,0,0,.4)}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<header>
+  <a class="back" href="index.html">← DAILY LOG</a>
+  <h1>電験三種 機械 <em>OVERCOME</em></h1>
+  <div class="sub">過去問トレーニング（H10〜R8）× 忘却曲線 × 苦手克服</div>
+</header>
+<nav id="nav">
+  <button data-t="today" class="on">🔥 今日</button>
+  <button data-t="map">📅 過去問マップ</button>
+  <button data-t="weak">🎯 苦手克服</button>
+  <button data-t="drill">🃏 ドリル</button>
+  <button data-t="ana">📊 分析</button>
+  <button data-t="set">⚙ 設定</button>
+</nav>
+<main>
+
+<!-- ================= 今日 ================= -->
+<section class="tab on" id="tab-today">
+  <div class="hero">
+    <div style="color:var(--dim)">本番 <span id="examTxt"></span> まで</div>
+    <div class="cd"><span id="cdDays">-</span><small style="font-size:1.2rem"> 日</small></div>
+    <div class="ph" id="phaseTxt"></div>
+  </div>
+  <div class="panel">
+    <h2>📈 合格への進捗</h2>
+    <div class="stats">
+      <div class="stat"><b id="sDone">0</b><span>過去問 解いた問題 / 全<span id="sAll"></span>問</span></div>
+      <div class="stat"><b id="sAcc">-</b><span>直近30日の正答率</span></div>
+      <div class="stat"><b id="sWeak">0</b><span>未克服の苦手問題</span></div>
+      <div class="stat"><b id="sCq">0</b><span>克服した苦手問題 🏆</span></div>
+      <div class="stat"><b id="sStreak">0</b><span>連続学習日数</span></div>
+      <div class="stat"><b id="sBest">-</b><span>年度別 最高得点</span></div>
+    </div>
+    <div style="margin-top:.8rem">過去問1周目の進捗：<span id="r1Txt"></span><div class="bar"><div id="r1Bar"></div></div></div>
+    <div id="quotaTxt" style="color:var(--gd);font-weight:700"></div>
+  </div>
+
+  <!-- 1問ずつスピード記録パネル -->
+  <div class="panel" id="qkPanel">
+    <h2>✍️ 解いた過去問を1問ずつ記録する（H10〜R8）</h2>
+    <div class="row">
+      <div><label>解いた日</label><input type="date" id="qkDate" onchange="syncQuick()"></div>
+      <div><label>年度（H10〜R8）</label><select id="qkYear" onchange="syncQuick()"></select></div>
+      <div><label>問題番号（問1〜18）</label><select id="qkNum" onchange="syncQuick()"></select></div>
+      <div><label>分野</label><select id="qkCat"></select></div>
+      <div><label>種類（復習サイクル連動）</label><select id="qkType"><option>計算</option><option>暗記</option><option>応用</option></select></div>
+    </div>
+    <div class="row" style="margin-top:.4rem">
+      <div><label>ミスの原因（間違い・うろ覚えのとき）</label><select id="qkReason"></select></div>
+      <div><label>次に思い出す1行メモ（公式・注意点など）</label><input type="text" id="qkMemo" placeholder="例：P2:Pc2:Po = 1:s:(1-s) 滑りsの換算に注意"></div>
+    </div>
+    <div id="qkStat" style="margin-top:.5rem;font-size:.88rem;color:var(--gd)"></div>
+    <div id="qkErr" class="errbox"></div>
+    <div class="gbtns" style="margin-top:.6rem">
+      <button class="gb0" onclick="quickRec(0)"><b>× 間違い</b>翌日もう一度復習</button>
+      <button class="gb1" onclick="quickRec(1)"><b>△ うろ覚え</b>短い間隔で復習</button>
+      <button class="gb2" onclick="quickRec(2)"><b>○ 正解！</b>次の記憶段階へ進む</button>
+      <button class="gb3" onclick="quickRec(3)"><b>◎ 完璧！</b>2段階スキップ</button>
+    </div>
+    <div style="margin-top:.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.82rem;color:var(--dim)">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <label style="margin:0;display:flex;align-items:center;gap:.4rem;cursor:pointer;color:var(--tx)">
+          <input type="checkbox" id="qkAuto" checked style="width:18px;height:18px;accent-color:var(--red)"> 記録したら自動で次の問題番号（問+1）へ進める
+        </label>
+        <label style="margin:0;display:flex;align-items:center;gap:.4rem;cursor:pointer;color:var(--gd)">
+          <input type="checkbox" id="qkAllowDup" style="width:18px;height:18px;accent-color:var(--red)" onchange="syncQuick()"> 記録済みの問題への追加記録（2周目以降の復習）を許可する
+        </label>
+      </div>
+      <span>💡 同じ日・記録済み問題のダブり入力は自動でエラーブロックされます</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>🧠 今日のメニュー（記憶が定着する1日のサイクル）</h2>
+    <div class="three">
+      <div class="slot"><h3>🌅 朝：計算・応用</h3><div class="n" id="nMorning">0</div>
+        <small>頭がいちばん冴えている時間。考える力が必要な計算・応用問題は朝に。期限が来た過去問・ドリルと新しいドリルが出ます。</small>
+        <button onclick="startSlot('morning')">▶ 朝の部を開始</button></div>
+      <div class="slot"><h3>☀ スキマ：暗記カード</h3><div class="n" id="nDay">0</div>
+        <small>1枚30秒。待ち時間・休憩中に。「答えを思い出す」こと自体が記憶を強くします（想起練習）。</small>
+        <button onclick="startSlot('day')">▶ スキマの部を開始</button></div>
+      <div class="slot"><h3>🌙 寝る前：暗記の復習</h3><div class="n" id="nNight">0</div>
+        <small>寝る前15分に覚えた内容は、眠っている間に脳で整理されて定着しやすくなります。暗記タイプの過去問と今日のミスを見直します。</small>
+        <button onclick="startSlot('night')">▶ 寝る前の部を開始</button></div>
+    </div>
+    <h3>🔁 復習の間隔（エビングハウスの忘却曲線にもとづく）</h3>
+    <div style="font-size:.88rem;color:var(--dim)">
+      🧠 暗記：1→2→4→7→14→30日　🧮 計算：1→3→7→14→30→45日　🧩 応用：1→3→6→12→25→45日<br>
+      × 不正解 → <b style="color:var(--rb)">翌日もう一度</b>　△ うろ覚え → 短い間隔からやり直し　○ → 次の段階へ　◎ → 2段階進む<br>
+      ※本番3日前より後になる復習は、自動で<b style="color:var(--gd)">本番3日前（総復習日）</b>にまとめます。
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel"><h2>⚠ 今日のミス見直しリスト（寝る前に読む）</h2><div id="todayMiss"></div></div>
+    <div class="panel"><h2>🎯 重点分野 TOP3</h2><div id="focusCats"></div></div>
+  </div>
+
+  <div class="panel"><h2>🗺 合格までのロードマップ</h2><div id="phases"></div></div>
+
+  <!-- 1問ずつの解答履歴ログ＆間違えた問題の検索・抽出 -->
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
+      <h2 style="margin:0">🔍 過去問 記録履歴の検索・間違えた問題の抽出</h2>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <button class="sub" style="padding:.35rem .8rem;font-size:.85rem" onclick="dedupAll()">🧹 既存のダブり記録を一括整理</button>
+        <button style="padding:.35rem .8rem;font-size:.85rem" onclick="practiceFiltered()">🔥 抽出中の問題をまとめて解き直す</button>
+      </div>
+    </div>
+    <!-- ワンタップ抽出ボタン -->
+    <div class="fbar" id="lgQuickBar">
+      <button class="fbtn on" data-res="" onclick="setLgRes('')">すべて表示</button>
+      <button class="fbtn" data-res="wrong" onclick="setLgRes('wrong')">❌ 間違えた問題だけ抽出（×不正解＋△うろ覚え）</button>
+      <button class="fbtn" data-res="g0" onclick="setLgRes('g0')">× 不正解のみ</button>
+      <button class="fbtn" data-res="g1" onclick="setLgRes('g1')">△ うろ覚えのみ</button>
+      <button class="fbtn" data-res="ok" onclick="setLgRes('ok')">⭕ 正解（○・◎）のみ</button>
+    </div>
+    <!-- 詳細検索フィルタ -->
+    <div class="row" style="margin-bottom:.6rem">
+      <div><label>年度で検索</label><select id="lgYear" onchange="renderQLogs()"></select></div>
+      <div><label>問題番号</label><select id="lgNum" onchange="renderQLogs()"></select></div>
+      <div><label>分野</label><select id="lgCat" onchange="renderQLogs()"></select></div>
+      <div><label>種類</label><select id="lgType" onchange="renderQLogs()"><option value="">すべて</option><option>計算</option><option>暗記</option><option>応用</option></select></div>
+      <div><label>ミスの原因</label><select id="lgReason" onchange="renderQLogs()"></select></div>
+      <div><label>キーワード（メモ・年度・番号）</label><input type="text" id="lgKw" placeholder="例：H18、誘導機、比例推移" oninput="renderQLogs()"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;margin-bottom:.5rem;font-size:.85rem">
+      <span id="lgCount" style="color:var(--gd);font-weight:700"></span>
+      <label style="margin:0;display:flex;align-items:center;gap:.4rem;cursor:pointer;color:var(--dim)">
+        <input type="checkbox" id="lgUniq" onchange="renderQLogs()" style="width:16px;height:16px;accent-color:var(--red)"> 同じ問題は最新の記録1件にまとめて表示する
+      </label>
+    </div>
+    <div id="qLogs"></div>
+  </div>
+</section>
+
+<!-- ================= 過去問マップ ================= -->
+<section class="tab" id="tab-map">
+  <div class="panel">
+    <h2>⚡ 年度を選んで1問ずつ一括・連続記録（問1〜問18）</h2>
+    <div class="row" style="align-items:end;margin-bottom:.6rem">
+      <div><label>記録する年度（H10〜R8）</label><select id="mpYear" onchange="renderYearSheet()"></select></div>
+      <div><label>解いた日</label><input type="date" id="mpDate"></div>
+      <div id="mpYearScore" style="font-weight:700;font-size:1.05rem;color:var(--gd)"></div>
+    </div>
+    <div style="font-size:.82rem;color:var(--dim);margin-bottom:.5rem">各問題の「○正解」「×間違い」などをワンタップすると1問ずつ即座に記録されます。詳細メモは問題名をタップすると入力できます。</div>
+    <div id="yearSheet" style="max-height:420px;overflow-y:auto;border:1px solid var(--bd);border-radius:4px;padding:.4rem;background:#000"></div>
+  </div>
+  <div class="panel">
+    <h2>📅 全年度マップ（H10〜R8・A問題14問＋B問題4問）</h2>
+    <div class="legend" style="margin-bottom:.5rem">
+      <span><i></i>未挑戦</span><span><i class="g0"></i>× 不正解</span><span><i class="g1"></i>△ うろ覚え</span>
+      <span><i class="g2"></i>○ 正解</span><span><i class="g3"></i>◎ 完璧</span><span>● 白い点＝今日が復習日</span>
+    </div>
+    <div style="font-size:.82rem;color:var(--dim);margin-bottom:.5rem">マス目をタップすると結果を記録できます。得点はA問題5点、B問題10点（△は半分の5点）。B問題は問15・16＋問17/18の良いほうで計算。<b style="color:var(--gd)">60点以上で合格ライン</b>。R4以降は上期・下期に分かれています。</div>
+    <div class="mapwrap"><table class="map" id="mapTbl"></table></div>
+  </div>
+  <div class="panel">
+    <h2>⏱ 本番形式タイマー（機械：90分）</h2>
+    <div class="row" style="align-items:end">
+      <div><label>年度</label><select id="tmYear"></select></div>
+      <div><div id="timer">90:00</div></div>
+      <div style="display:flex;gap:.4rem"><button onclick="timerStart()">▶ 開始</button><button class="sub" onclick="timerStop()">■ 停止</button></div>
+    </div>
+    <div style="font-size:.85rem;color:var(--dim);margin-top:.4rem">時間配分の目安：A問題 1問約4分（計56分）→ B問題 1問約10分（計30分）→ 見直し4分。終わったらマップで1問ずつ記録しましょう。</div>
+  </div>
+</section>
+
+<!-- ================= 苦手克服 ================= -->
+<section class="tab" id="tab-weak">
+  <div class="panel">
+    <h2>🎯 苦手克服の4ステップ</h2>
+    <div style="font-size:.92rem">
+      ① <b>解説を読む</b> → ② <b>メモ欄に「次に思い出すべき1行」を書く</b>（公式・考え方）→ ③ <b>何も見ずに解き直す</b> → ④ <b>間隔をあけて3回連続○以上で「克服」🏆</b><br>
+      <span style="color:var(--dim)">間違えた問題は翌日に自動で出題されます。メモは復習のときに表示されるので、自分専用の暗記カードになります。</span>
+    </div>
+    <div style="margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <button onclick="startWeak(false)">🔥 期限が来た苦手だけ演習</button>
+      <button class="sub" onclick="startWeak(true)">💪 苦手を全部まとめて演習（最大20問）</button>
+    </div>
+  </div>
+  <div class="panel"><h2>📋 未克服の苦手問題</h2>
+    <div class="row" style="margin-bottom:.5rem">
+      <div><label>分野で絞り込み</label><select id="wkCat" onchange="renderWeak()"></select></div>
+      <div><label>種類で絞り込み</label><select id="wkType" onchange="renderWeak()"><option value="">すべて</option><option>暗記</option><option>計算</option><option>応用</option></select></div>
+    </div>
+    <div id="weakList"></div></div>
+  <div class="two">
+    <div class="panel"><h2>🔍 ミスの原因と対策</h2><div id="reasonList"></div></div>
+    <div class="panel"><h2>🏆 克服した問題</h2><div id="cqList"></div></div>
+  </div>
+</section>
+
+<!-- ================= ドリル ================= -->
+<section class="tab" id="tab-drill">
+  <div class="panel">
+    <h2>🃏 内蔵ドリル（機械科目の頻出ポイント）</h2>
+    <div style="font-size:.9rem;color:var(--dim);margin-bottom:.6rem">🧠 暗記カード：公式・用語を思い出す　🧮 計算ドリル：毎回数値が変わるので「答えの丸暗記」ではなく解き方が身につく　🧩 応用ドリル：2〜3段階の複合計算（B問題対策）</div>
+    <div class="three">
+      <div class="slot"><h3>🧠 暗記カード</h3><div class="n" id="dn暗記"></div><small id="ds暗記"></small><button onclick="startDrill('暗記')">▶ 開始</button></div>
+      <div class="slot"><h3>🧮 計算ドリル</h3><div class="n" id="dn計算"></div><small id="ds計算"></small><button onclick="startDrill('計算')">▶ 開始</button></div>
+      <div class="slot"><h3>🧩 応用ドリル</h3><div class="n" id="dn応用"></div><small id="ds応用"></small><button onclick="startDrill('応用')">▶ 開始</button></div>
+    </div>
+    <div style="margin-top:.6rem"><button class="sub" onclick="startDrill('ALL')">🎲 期限に関係なく全種類からランダム10問</button></div>
+  </div>
+  <div class="panel"><h2>📚 ドリル一覧と記憶の段階</h2><div id="drillList"></div></div>
+</section>
+
+<!-- ================= 分析 ================= -->
+<section class="tab" id="tab-ana">
+  <div class="two">
+    <div class="panel"><h2>📊 直近14日の演習数</h2><canvas id="ch1"></canvas></div>
+    <div class="panel"><h2>📈 直近14日の正答率(%)</h2><canvas id="ch2"></canvas></div>
+  </div>
+  <div class="panel"><h2>🧩 分野別の弱点分析（弱い順）</h2><div id="catTbl"></div></div>
+  <div class="two">
+    <div class="panel"><h2>🔤 問題の種類別</h2><div id="typeTbl"></div></div>
+    <div class="panel"><h2>📅 年度別スコア</h2><div id="yearTbl" style="max-height:420px;overflow-y:auto"></div></div>
+  </div>
+</section>
+
+<!-- ================= 設定 ================= -->
+<section class="tab" id="tab-set">
+  <div class="panel">
+    <h2>⚙ 設定</h2>
+    <div class="row">
+      <div><label>試験日</label><input type="date" id="setExam"></div>
+      <div><label>ドリルの新規カード数（1日）</label><input type="number" id="setNew" min="0" max="30"></div>
+      <div><label>過去問1周目の完了目標日</label><input type="date" id="setR1"></div>
+    </div>
+    <div style="margin-top:.8rem"><button onclick="saveSet()">💾 設定を保存</button></div>
+  </div>
+  <div class="panel">
+    <h2>📱 外出先・スマホ連携＆データ引き継ぎ（PC ⇔ スマホ）</h2>
+    <div class="two" style="align-items:center">
+      <div style="text-align:center">
+        <div class="qrbox">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" width="180" height="180" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#ffffff"/><path d="M4,4h1v1h-1zM5,4h1v1h-1zM6,4h1v1h-1zM7,4h1v1h-1zM8,4h1v1h-1zM9,4h1v1h-1zM10,4h1v1h-1zM14,4h1v1h-1zM18,4h1v1h-1zM22,4h1v1h-1zM23,4h1v1h-1zM25,4h1v1h-1zM26,4h1v1h-1zM27,4h1v1h-1zM30,4h1v1h-1zM31,4h1v1h-1zM32,4h1v1h-1zM33,4h1v1h-1zM34,4h1v1h-1zM35,4h1v1h-1zM36,4h1v1h-1zM4,5h1v1h-1zM10,5h1v1h-1zM13,5h1v1h-1zM17,5h1v1h-1zM21,5h1v1h-1zM22,5h1v1h-1zM23,5h1v1h-1zM24,5h1v1h-1zM25,5h1v1h-1zM27,5h1v1h-1zM30,5h1v1h-1zM36,5h1v1h-1zM4,6h1v1h-1zM6,6h1v1h-1zM7,6h1v1h-1zM8,6h1v1h-1zM10,6h1v1h-1zM12,6h1v1h-1zM15,6h1v1h-1zM19,6h1v1h-1zM23,6h1v1h-1zM24,6h1v1h-1zM27,6h1v1h-1zM30,6h1v1h-1zM32,6h1v1h-1zM33,6h1v1h-1zM34,6h1v1h-1zM36,6h1v1h-1zM4,7h1v1h-1zM6,7h1v1h-1zM7,7h1v1h-1zM8,7h1v1h-1zM10,7h1v1h-1zM13,7h1v1h-1zM16,7h1v1h-1zM17,7h1v1h-1zM22,7h1v1h-1zM26,7h1v1h-1zM30,7h1v1h-1zM32,7h1v1h-1zM33,7h1v1h-1zM34,7h1v1h-1zM36,7h1v1h-1zM4,8h1v1h-1zM6,8h1v1h-1zM7,8h1v1h-1zM8,8h1v1h-1zM10,8h1v1h-1zM13,8h1v1h-1zM16,8h1v1h-1zM17,8h1v1h-1zM20,8h1v1h-1zM23,8h1v1h-1zM25,8h1v1h-1zM26,8h1v1h-1zM27,8h1v1h-1zM28,8h1v1h-1zM30,8h1v1h-1zM32,8h1v1h-1zM33,8h1v1h-1zM34,8h1v1h-1zM36,8h1v1h-1zM4,9h1v1h-1zM10,9h1v1h-1zM14,9h1v1h-1zM15,9h1v1h-1zM16,9h1v1h-1zM18,9h1v1h-1zM19,9h1v1h-1zM23,9h1v1h-1zM24,9h1v1h-1zM26,9h1v1h-1zM27,9h1v1h-1zM30,9h1v1h-1zM36,9h1v1h-1zM4,10h1v1h-1zM5,10h1v1h-1zM6,10h1v1h-1zM7,10h1v1h-1zM8,10h1v1h-1zM9,10h1v1h-1zM10,10h1v1h-1zM12,10h1v1h-1zM14,10h1v1h-1zM16,10h1v1h-1zM18,10h1v1h-1zM20,10h1v1h-1zM22,10h1v1h-1zM24,10h1v1h-1zM26,10h1v1h-1zM28,10h1v1h-1zM30,10h1v1h-1zM31,10h1v1h-1zM32,10h1v1h-1zM33,10h1v1h-1zM34,10h1v1h-1zM35,10h1v1h-1zM36,10h1v1h-1zM12,11h1v1h-1zM15,11h1v1h-1zM19,11h1v1h-1zM20,11h1v1h-1zM21,11h1v1h-1zM25,11h1v1h-1zM26,11h1v1h-1zM4,12h1v1h-1zM5,12h1v1h-1zM6,12h1v1h-1zM8,12h1v1h-1zM9,12h1v1h-1zM10,12h1v1h-1zM11,12h1v1h-1zM12,12h1v1h-1zM16,12h1v1h-1zM19,12h1v1h-1zM20,12h1v1h-1zM21,12h1v1h-1zM22,12h1v1h-1zM24,12h1v1h-1zM25,12h1v1h-1zM26,12h1v1h-1zM28,12h1v1h-1zM29,12h1v1h-1zM30,12h1v1h-1zM34,12h1v1h-1zM6,13h1v1h-1zM7,13h1v1h-1zM8,13h1v1h-1zM12,13h1v1h-1zM13,13h1v1h-1zM15,13h1v1h-1zM16,13h1v1h-1zM17,13h1v1h-1zM20,13h1v1h-1zM24,13h1v1h-1zM28,13h1v1h-1zM29,13h1v1h-1zM30,13h1v1h-1zM33,13h1v1h-1zM36,13h1v1h-1zM4,14h1v1h-1zM7,14h1v1h-1zM8,14h1v1h-1zM10,14h1v1h-1zM12,14h1v1h-1zM14,14h1v1h-1zM15,14h1v1h-1zM16,14h1v1h-1zM18,14h1v1h-1zM21,14h1v1h-1zM25,14h1v1h-1zM31,14h1v1h-1zM33,14h1v1h-1zM35,14h1v1h-1zM36,14h1v1h-1zM5,15h1v1h-1zM6,15h1v1h-1zM8,15h1v1h-1zM11,15h1v1h-1zM12,15h1v1h-1zM13,15h1v1h-1zM14,15h1v1h-1zM16,15h1v1h-1zM17,15h1v1h-1zM18,15h1v1h-1zM19,15h1v1h-1zM20,15h1v1h-1zM21,15h1v1h-1zM22,15h1v1h-1zM23,15h1v1h-1zM25,15h1v1h-1zM26,15h1v1h-1zM27,15h1v1h-1zM28,15h1v1h-1zM31,15h1v1h-1zM32,15h1v1h-1zM33,15h1v1h-1zM35,15h1v1h-1zM4,16h1v1h-1zM7,16h1v1h-1zM8,16h1v1h-1zM9,16h1v1h-1zM10,16h1v1h-1zM11,16h1v1h-1zM12,16h1v1h-1zM14,16h1v1h-1zM15,16h1v1h-1zM18,16h1v1h-1zM19,16h1v1h-1zM20,16h1v1h-1zM21,16h1v1h-1zM24,16h1v1h-1zM25,16h1v1h-1zM29,16h1v1h-1zM30,16h1v1h-1zM33,16h1v1h-1zM36,16h1v1h-1zM4,17h1v1h-1zM5,17h1v1h-1zM6,17h1v1h-1zM8,17h1v1h-1zM11,17h1v1h-1zM12,17h1v1h-1zM13,17h1v1h-1zM14,17h1v1h-1zM15,17h1v1h-1zM18,17h1v1h-1zM20,17h1v1h-1zM24,17h1v1h-1zM25,17h1v1h-1zM28,17h1v1h-1zM30,17h1v1h-1zM33,17h1v1h-1zM34,17h1v1h-1zM36,17h1v1h-1zM4,18h1v1h-1zM5,18h1v1h-1zM6,18h1v1h-1zM10,18h1v1h-1zM12,18h1v1h-1zM17,18h1v1h-1zM20,18h1v1h-1zM21,18h1v1h-1zM22,18h1v1h-1zM24,18h1v1h-1zM28,18h1v1h-1zM30,18h1v1h-1zM31,18h1v1h-1zM32,18h1v1h-1zM35,18h1v1h-1zM36,18h1v1h-1zM6,19h1v1h-1zM7,19h1v1h-1zM8,19h1v1h-1zM11,19h1v1h-1zM12,19h1v1h-1zM13,19h1v1h-1zM15,19h1v1h-1zM19,19h1v1h-1zM20,19h1v1h-1zM21,19h1v1h-1zM22,19h1v1h-1zM25,19h1v1h-1zM27,19h1v1h-1zM30,19h1v1h-1zM33,19h1v1h-1zM35,19h1v1h-1zM4,20h1v1h-1zM6,20h1v1h-1zM8,20h1v1h-1zM9,20h1v1h-1zM10,20h1v1h-1zM11,20h1v1h-1zM13,20h1v1h-1zM16,20h1v1h-1zM21,20h1v1h-1zM25,20h1v1h-1zM27,20h1v1h-1zM28,20h1v1h-1zM29,20h1v1h-1zM30,20h1v1h-1zM31,20h1v1h-1zM35,20h1v1h-1zM36,20h1v1h-1zM8,21h1v1h-1zM9,21h1v1h-1zM11,21h1v1h-1zM14,21h1v1h-1zM15,21h1v1h-1zM16,21h1v1h-1zM17,21h1v1h-1zM20,21h1v1h-1zM21,21h1v1h-1zM24,21h1v1h-1zM25,21h1v1h-1zM28,21h1v1h-1zM30,21h1v1h-1zM34,21h1v1h-1zM36,21h1v1h-1zM7,22h1v1h-1zM9,22h1v1h-1zM10,22h1v1h-1zM13,22h1v1h-1zM15,22h1v1h-1zM16,22h1v1h-1zM18,22h1v1h-1zM20,22h1v1h-1zM22,22h1v1h-1zM24,22h1v1h-1zM28,22h1v1h-1zM29,22h1v1h-1zM30,22h1v1h-1zM31,22h1v1h-1zM32,22h1v1h-1zM33,22h1v1h-1zM35,22h1v1h-1zM36,22h1v1h-1zM12,23h1v1h-1zM16,23h1v1h-1zM17,23h1v1h-1zM18,23h1v1h-1zM19,23h1v1h-1zM21,23h1v1h-1zM22,23h1v1h-1zM23,23h1v1h-1zM24,23h1v1h-1zM25,23h1v1h-1zM26,23h1v1h-1zM27,23h1v1h-1zM28,23h1v1h-1zM31,23h1v1h-1zM32,23h1v1h-1zM33,23h1v1h-1zM35,23h1v1h-1zM5,24h1v1h-1zM7,24h1v1h-1zM8,24h1v1h-1zM9,24h1v1h-1zM10,24h1v1h-1zM11,24h1v1h-1zM13,24h1v1h-1zM14,24h1v1h-1zM15,24h1v1h-1zM18,24h1v1h-1zM19,24h1v1h-1zM20,24h1v1h-1zM21,24h1v1h-1zM25,24h1v1h-1zM29,24h1v1h-1zM30,24h1v1h-1zM31,24h1v1h-1zM35,24h1v1h-1zM36,24h1v1h-1zM12,25h1v1h-1zM14,25h1v1h-1zM15,25h1v1h-1zM18,25h1v1h-1zM20,25h1v1h-1zM24,25h1v1h-1zM28,25h1v1h-1zM29,25h1v1h-1zM30,25h1v1h-1zM34,25h1v1h-1zM36,25h1v1h-1zM4,26h1v1h-1zM6,26h1v1h-1zM8,26h1v1h-1zM10,26h1v1h-1zM13,26h1v1h-1zM14,26h1v1h-1zM17,26h1v1h-1zM20,26h1v1h-1zM21,26h1v1h-1zM22,26h1v1h-1zM25,26h1v1h-1zM30,26h1v1h-1zM31,26h1v1h-1zM32,26h1v1h-1zM33,26h1v1h-1zM35,26h1v1h-1zM36,26h1v1h-1zM5,27h1v1h-1zM7,27h1v1h-1zM8,27h1v1h-1zM9,27h1v1h-1zM11,27h1v1h-1zM12,27h1v1h-1zM14,27h1v1h-1zM15,27h1v1h-1zM20,27h1v1h-1zM21,27h1v1h-1zM22,27h1v1h-1zM23,27h1v1h-1zM24,27h1v1h-1zM25,27h1v1h-1zM27,27h1v1h-1zM29,27h1v1h-1zM30,27h1v1h-1zM31,27h1v1h-1zM35,27h1v1h-1zM4,28h1v1h-1zM8,28h1v1h-1zM10,28h1v1h-1zM16,28h1v1h-1zM19,28h1v1h-1zM20,28h1v1h-1zM21,28h1v1h-1zM23,28h1v1h-1zM24,28h1v1h-1zM25,28h1v1h-1zM27,28h1v1h-1zM28,28h1v1h-1zM29,28h1v1h-1zM30,28h1v1h-1zM31,28h1v1h-1zM32,28h1v1h-1zM33,28h1v1h-1zM12,29h1v1h-1zM13,29h1v1h-1zM14,29h1v1h-1zM15,29h1v1h-1zM16,29h1v1h-1zM17,29h1v1h-1zM27,29h1v1h-1zM28,29h1v1h-1zM32,29h1v1h-1zM35,29h1v1h-1zM36,29h1v1h-1zM4,30h1v1h-1zM5,30h1v1h-1zM6,30h1v1h-1zM7,30h1v1h-1zM8,30h1v1h-1zM9,30h1v1h-1zM10,30h1v1h-1zM12,30h1v1h-1zM14,30h1v1h-1zM15,30h1v1h-1zM16,30h1v1h-1zM18,30h1v1h-1zM20,30h1v1h-1zM21,30h1v1h-1zM25,30h1v1h-1zM26,30h1v1h-1zM27,30h1v1h-1zM28,30h1v1h-1zM30,30h1v1h-1zM32,30h1v1h-1zM34,30h1v1h-1zM35,30h1v1h-1zM36,30h1v1h-1zM4,31h1v1h-1zM10,31h1v1h-1zM12,31h1v1h-1zM13,31h1v1h-1zM14,31h1v1h-1zM16,31h1v1h-1zM17,31h1v1h-1zM18,31h1v1h-1zM20,31h1v1h-1zM21,31h1v1h-1zM22,31h1v1h-1zM25,31h1v1h-1zM26,31h1v1h-1zM28,31h1v1h-1zM32,31h1v1h-1zM35,31h1v1h-1zM36,31h1v1h-1zM4,32h1v1h-1zM6,32h1v1h-1zM7,32h1v1h-1zM8,32h1v1h-1zM10,32h1v1h-1zM12,32h1v1h-1zM15,32h1v1h-1zM18,32h1v1h-1zM19,32h1v1h-1zM20,32h1v1h-1zM21,32h1v1h-1zM25,32h1v1h-1zM28,32h1v1h-1zM29,32h1v1h-1zM30,32h1v1h-1zM31,32h1v1h-1zM32,32h1v1h-1zM4,33h1v1h-1zM6,33h1v1h-1zM7,33h1v1h-1zM8,33h1v1h-1zM10,33h1v1h-1zM13,33h1v1h-1zM15,33h1v1h-1zM18,33h1v1h-1zM20,33h1v1h-1zM25,33h1v1h-1zM28,33h1v1h-1zM29,33h1v1h-1zM31,33h1v1h-1zM32,33h1v1h-1zM33,33h1v1h-1zM36,33h1v1h-1zM4,34h1v1h-1zM6,34h1v1h-1zM7,34h1v1h-1zM8,34h1v1h-1zM10,34h1v1h-1zM12,34h1v1h-1zM14,34h1v1h-1zM17,34h1v1h-1zM24,34h1v1h-1zM27,34h1v1h-1zM28,34h1v1h-1zM31,34h1v1h-1zM32,34h1v1h-1zM33,34h1v1h-1zM34,34h1v1h-1zM36,34h1v1h-1zM4,35h1v1h-1zM10,35h1v1h-1zM12,35h1v1h-1zM15,35h1v1h-1zM20,35h1v1h-1zM21,35h1v1h-1zM22,35h1v1h-1zM24,35h1v1h-1zM25,35h1v1h-1zM26,35h1v1h-1zM27,35h1v1h-1zM28,35h1v1h-1zM30,35h1v1h-1zM32,35h1v1h-1zM35,35h1v1h-1zM4,36h1v1h-1zM5,36h1v1h-1zM6,36h1v1h-1zM7,36h1v1h-1zM8,36h1v1h-1zM9,36h1v1h-1zM10,36h1v1h-1zM12,36h1v1h-1zM16,36h1v1h-1zM19,36h1v1h-1zM20,36h1v1h-1zM21,36h1v1h-1zM23,36h1v1h-1zM24,36h1v1h-1zM25,36h1v1h-1zM27,36h1v1h-1zM28,36h1v1h-1zM35,36h1v1h-1zM36,36h1v1h-1z" fill="#000000"/></svg>
+        </div>
+        <div style="font-size:.82rem;color:var(--gd);margin-top:.4rem;font-weight:700">📷 スマホのカメラで読み取って起動</div>
+        <div style="font-size:.75rem;color:var(--dim);word-break:break-all">https://takayukisub.github.io/denken3-tracker/kakomon.html</div>
+      </div>
+      <div>
+        <h3>📲 スマホのホーム画面にアプリとして追加する方法</h3>
+        <div style="font-size:.88rem;color:var(--dim);margin-bottom:.6rem">
+          ・<b>iPhone (Safari)</b>：画面下の共有ボタン「↑」→<b>「ホーム画面に追加」</b><br>
+          ・<b>Android (Chrome)</b>：右上の「⋮」→<b>「ホーム画面に追加 / アプリをインストール」</b><br>
+          ※一度開けば電波のない場所（地下鉄など）でもオフラインで動きます。
+        </div>
+        <h3>🔄 ワンタップ引き継ぎコード（PC ⇔ スマホ）</h3>
+        <div style="font-size:.84rem;color:var(--dim);margin-bottom:.4rem">LINEの「Keepメモ」やメールに貼り付けて、PCとスマホの記録を簡単に同期できます。</div>
+        <textarea id="syncBox" rows="2" placeholder="ここに引き継ぎコードを貼り付けて「コードから復元」を押します" style="font-size:.8rem"></textarea>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.4rem">
+          <button onclick="copySyncCode()">📋 引き継ぎコードをコピー</button>
+          <button class="sub" onclick="pasteSyncCode()">📥 コードから復元（統合）</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>💾 ファイルバックアップ</h2>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button onclick="exportData()">📤 バックアップを保存</button>
+      <button class="sub" onclick="$('imp').click()">📂 読み込み</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
+      <button class="sub" onclick="resetAll()">🗑 全データ削除</button>
+    </div>
+    <div style="font-size:.85rem;color:var(--dim);margin-top:.5rem">データはこのブラウザ内（localStorage）に保存されます。週1回はバックアップを。</div>
+  </div>
+</section>
+</main>
+<footer>電験三種 機械科目 合格まで、毎日1問でも。🤘 STAY METAL, STAY STUDY.</footer>
+
+<!-- 学習セッション用モーダル -->
+<div id="modal"><div class="box">
+  <div class="top"><span id="mHead"></span><button class="sub" style="padding:.2rem .8rem" onclick="closeModal()">✕ 閉じる</button></div>
+  <div id="mBody"></div>
+</div></div>
+
+<script>
+// ============================================================
+// 定数
+// ============================================================
+const KEY = 'denken3_kikai_kakomon_v1';                 // 保存キー
+const QN = 18;                                           // 1年度の問題数（A問題14＋B問題4）
+const YEARS = (() => {                                   // 年度一覧（新しい順）H10〜R8、R4以降は上期・下期
+  const a = [];
+  for (let h = 10; h <= 30; h++) a.push('H' + h);
+  a.push('R1', 'R2', 'R3');
+  for (let r = 4; r <= 8; r++) a.push('R' + r + '上', 'R' + r + '下');
+  return a.reverse();
+})();
+const CATS = ['直流機','誘導機','同期機','変圧器','機器全般','パワエレ','電動機応用','照明','電熱','電気化学','自動制御','情報']; // 分野一覧
+const DEF_CAT = {1:'直流機',2:'直流機',3:'誘導機',4:'誘導機',5:'同期機',6:'同期機',7:'機器全般',8:'変圧器',9:'変圧器',
+  10:'パワエレ',11:'電動機応用',12:'照明',13:'自動制御',14:'情報',15:'変圧器',16:'パワエレ',17:'電熱',18:'自動制御'}; // 問題番号ごとの分野の目安
+const TYPES = {                                          // 問題の種類ごとの復習間隔[日]
+  '暗記': { ic:'🧠', iv:[1,2,4,7,14,30,60] },
+  '計算': { ic:'🧮', iv:[1,3,7,14,30,45,60] },
+  '応用': { ic:'🧩', iv:[1,3,6,12,25,45,60] }
+};
+const GR = [                                             // 自己採点の段階
+  { s:'×', n:'不正解' }, { s:'△', n:'うろ覚え' }, { s:'○', n:'正解' }, { s:'◎', n:'完璧' }
+];
+const REASONS = ['（原因を選ぶ）','公式を忘れた','計算ミス','知識不足（用語・原理）','問題文の読み違い','時間が足りない','解法が浮かばない']; // ミスの原因
+const REASON_TIP = {                                     // 原因ごとの対策
+  '公式を忘れた':'種類を「暗記」にして寝る前に復習。メモ欄に公式をそのまま書いておくと復習時に表示されます。',
+  '計算ミス':'途中式を省略しない。単位と桁（k・M・%）を毎行書く。電卓は2回打って確認。',
+  '知識不足（用語・原理）':'解説を読んだら「自分の言葉で1行」メモ（ファインマン法）。人に説明できれば定着。',
+  '問題文の読み違い':'「一定」「無視」「定格」「1相あたり」などの条件に下線を引く習慣を。',
+  '時間が足りない':'第3期の90分タイマー演習でA問題1問4分の感覚を体に覚えさせる。迷ったら飛ばす。',
+  '解法が浮かばない':'種類を「応用」に。同じ分野の問題を3年度分まとめて解き、解き方のパターンを作る。'
+};
+const CAT_TIP = {                                        // 分野ごとの克服ヒント
+  '直流機':'E=V−IaRa（電動機）/E=V+IaRa（発電機）と N∝E/φ を白紙で書けるまで。直巻はT∝Ia²。',
+  '誘導機':'P2:Pc2:Po=1:s:(1−s) と比例推移で9割取れる。等価回路を毎日1回描く。',
+  '同期機':'V曲線・電機子反作用・短絡比は暗記、P=VEsinδ/Xs は計算。ベクトル図を描く。',
+  '変圧器':'最大効率（鉄損=銅損）、電圧変動率 ε=pcosθ+qsinθ、%Zの3点セット。',
+  '機器全般':'特殊電動機・ステッピングモータ・始動法などは暗記カードにして寝る前に。',
+  'パワエレ':'素子の特徴と整流の平均値 0.45/0.9/1.35、チョッパ D・1/(1−D) を暗記。',
+  '電動機応用':'P=9.8QH/η、P=9.8Wv/η。分→秒の換算ミスに注意。はずみ車は Jω²/2。',
+  '照明':'逆2乗則 E=I/r² と余弦則、F=4πI。必ず図を描いて角度を確認。',
+  '電熱':'Q=mcΔT、1kWh=3600kJ、ヒートポンプのCOP。単位換算が最大の敵。',
+  '電気化学':'ファラデーの法則 W=MIt/(nF)、電池の種類と特徴を暗記。',
+  '自動制御':'フィードバック G/(1+GH)、一次遅れ K/(1+sT)、ボード線図の傾き −20dB/dec。',
+  '情報':'2進・16進変換、論理回路の真理値表、フローチャートは手で1行ずつ追う。'
+};
+
+// ============================================================
+// 内蔵ドリル
+// ============================================================
+const pick = a => a[Math.floor(Math.random() * a.length)];     // 配列からランダムに1つ
+const f2 = x => { const v = Math.abs(x); return +x.toFixed(v >= 1000 ? 0 : v >= 100 ? 1 : v >= 10 ? 2 : 3); }; // 表示用の丸め
+const RAD = d => d * Math.PI / 180;                              // 度→ラジアン
+
+// 暗記カード [ID, 分野, 問い, 答え]
+const CARDS = [
+  ['m1','誘導機','同期速度 Ns の式は？','Ns = 120f / p [min⁻¹]（f：周波数、p：極数）'],
+  ['m2','誘導機','滑り s の定義式は？','s = (Ns − N) / Ns'],
+  ['m3','誘導機','二次入力P2・二次銅損Pc2・機械出力Po の比は？','P2 : Pc2 : Po = 1 : s : (1 − s)'],
+  ['m4','誘導機','誘導電動機のトルクと電源電圧の関係は？','T ∝ V²（電圧が0.9倍→トルク0.81倍）'],
+  ['m5','誘導機','比例推移とは？','二次抵抗を m 倍にすると、同じトルクを出す滑りも m 倍になる（r₂/s が一定ならトルク一定）。巻線形で始動トルク増加・速度制御に利用。'],
+  ['m6','誘導機','Y−Δ始動の始動電流・始動トルクは直入れの何倍？','どちらも 1/3 倍'],
+  ['m7','直流機','直流機の誘導起電力 E の式は？','E = pZφN / (60a) = Kφn（p：極数、Z：導体数、a：並列回路数）'],
+  ['m8','直流機','直流電動機・発電機の端子電圧と起電力の関係は？','電動機：V = E + IaRa　発電機：V = E − IaRa'],
+  ['m9','直流機','直巻電動機の特徴は？','T ∝ Ia²（磁気飽和前）。軽負荷で高速になり無負荷運転は危険 → ベルト掛け禁止。電車・クレーン向き。'],
+  ['m10','直流機','直流電動機の速度制御法3つは？','界磁制御（φを変える）・抵抗制御（直列抵抗）・電圧制御（ワードレオナード、チョッパ）'],
+  ['m11','変圧器','変圧器の効率が最大になる条件は？','鉄損 = 銅損 のとき。そのときの負荷率 α = √(Pi / Pc)'],
+  ['m12','変圧器','鉄損・銅損は負荷によってどう変わる？','鉄損：負荷に関係なくほぼ一定　銅損：負荷率の2乗に比例'],
+  ['m13','変圧器','電圧変動率の近似式は？','ε ≒ p cosθ + q sinθ（p：%抵抗降下、q：%リアクタンス降下、遅れ力率）'],
+  ['m14','変圧器','単相変圧器の並行運転の条件は？','①極性が一致 ②巻数比が等しい ③%インピーダンスが等しい ④抵抗とリアクタンスの比が等しい（三相はさらに相回転・角変位が一致）'],
+  ['m15','変圧器','変圧器の無負荷試験・短絡試験で分かるものは？','無負荷試験：鉄損・励磁電流　短絡試験：銅損・%インピーダンス'],
+  ['m16','同期機','短絡比 Ks と同期インピーダンスの関係は？','Ks = 1 / Zs[p.u.]。短絡比大＝鉄機械：電圧変動率小・安定度高・大型で高価'],
+  ['m17','同期機','同期電動機のV曲線：界磁電流を増やすと？','過励磁 → 進み電流（コンデンサとして働く）。減らすと不足励磁 → 遅れ電流。'],
+  ['m18','同期機','同期発電機の電機子反作用（遅れ・進み・同相）は？','遅れ電流：減磁作用　進み電流：増磁作用　同相：交差磁化作用'],
+  ['m19','同期機','同期機の出力（三相・線間値）の式は？','P = V E sinδ / Xs（δ：負荷角、δ=90°で最大）'],
+  ['m20','同期機','同期発電機の並行運転の条件は？','起電力の ①大きさ ②位相 ③周波数 ④波形 ⑤相回転 が等しいこと'],
+  ['m21','パワエレ','整流回路の直流平均電圧（抵抗負荷、制御角0）は？','単相半波 0.45V　単相全波 0.9V　三相全波 1.35V（V：交流実効値）'],
+  ['m22','パワエレ','チョッパの出力電圧は？','降圧：Vo = D·Vs　昇圧：Vo = Vs / (1 − D)（D：通流率）'],
+  ['m23','パワエレ','IGBT・MOSFET・サイリスタの違いは？','サイリスタ：ゲートでオンのみ（自己消弧不可）　IGBT・MOSFET・GTO：自己消弧可能。MOSFETは高速、IGBTは大電流向き。'],
+  ['m24','電動機応用','ポンプ用電動機の所要出力は？','P = 9.8 Q H / η [kW]（Q：m³/s、H：全揚程m）'],
+  ['m25','電動機応用','巻上機の所要出力は？','P = 9.8 W v / η [kW]（W：質量t、v：m/s）'],
+  ['m26','照明','照度の逆2乗の法則・入射角の余弦法則は？','法線照度 E = I / r²　水平面照度 Eh = I cosθ / r² [lx]'],
+  ['m27','照明','均等点光源の全光束と光度の関係は？','F = 4πI [lm]'],
+  ['m28','電熱','熱量の基本式と kWh の換算は？','Q = m c ΔT（水 c=4.186 kJ/(kg·K)）　1 kWh = 3600 kJ'],
+  ['m29','電気化学','ファラデーの法則は？','析出量 W = (1/F)·(M/n)·I·t [g]（F ≒ 96500 C/mol）'],
+  ['m30','自動制御','フィードバック系の閉ループ伝達関数・一次遅れ要素は？','閉ループ：G / (1 + GH)　一次遅れ：K / (1 + sT)（T：時定数）'],
+  ['m31','自動制御','一次遅れ要素のボード線図の特徴は？','折れ点角周波数 ω=1/T。それ以上で −20 dB/dec、位相は最終 −90°（折れ点で −45°）'],
+  ['m32','情報','ド・モルガンの定理は？','¬(A·B) = ¬A + ¬B　¬(A+B) = ¬A·¬B']
+].map(c => ({ id:c[0], type:'暗記', cat:c[1], t:c[2], a:c[3] }));
+
+// 計算・応用ドリル（毎回数値が変わる）
+const CALCS = [
+  { id:'c1', type:'計算', cat:'誘導機', t:'同期速度と滑り', gen(){
+    const f = pick([50,60]), p = pick([4,6,8]), Ns = 120*f/p, s = pick([2,2.5,3,4,5,6]), N = Ns*(1-s/100);
+    return { q:`周波数 ${f} Hz、${p} 極の三相誘導電動機が ${f2(N)} min⁻¹ で回転している。滑り s は何 % か。`, a:s, u:'%',
+      s:`Ns = 120f/p = 120×${f}/${p} = ${Ns} min⁻¹<br>s = (Ns−N)/Ns = (${Ns}−${f2(N)})/${Ns} = <b>${s} %</b>` }; } },
+  { id:'c2', type:'計算', cat:'誘導機', t:'二次入力と機械出力', gen(){
+    const P2 = pick([10,20,25,40,50,80]), s = pick([2,3,4,5]), Po = P2*(1-s/100);
+    return { q:`二次入力 P2 = ${P2} kW、滑り ${s} % で運転している三相誘導電動機の機械的出力 Po [kW] は？（機械損は無視）`, a:Po, u:'kW',
+      s:`P2 : Pc2 : Po = 1 : s : (1−s)<br>Pc2 = sP2 = ${s/100}×${P2} = ${f2(P2*s/100)} kW<br>Po = (1−s)P2 = ${1-s/100}×${P2} = <b>${f2(Po)} kW</b>` }; } },
+  { id:'c3', type:'計算', cat:'直流機', t:'直流電動機の逆起電力', gen(){
+    const V = pick([100,200,220]), Ia = pick([10,20,30,40,50]), Ra = pick([0.1,0.2,0.25,0.4,0.5]), E = V - Ia*Ra;
+    return { q:`端子電圧 ${V} V、電機子電流 ${Ia} A、電機子抵抗 ${Ra} Ω の直流電動機の逆起電力 E [V] は？（ブラシの電圧降下は無視）`, a:E, u:'V',
+      s:`電動機は V = E + IaRa より E = V − IaRa = ${V} − ${Ia}×${Ra} = <b>${f2(E)} V</b>` }; } },
+  { id:'c4', type:'計算', cat:'電動機応用', t:'出力とトルク', gen(){
+    const P = pick([3.7,5.5,7.5,11,15,22]), N = pick([960,1170,1440,1460,1740]), T = 60*P*1000/(2*Math.PI*N);
+    return { q:`出力 ${P} kW、回転速度 ${N} min⁻¹ の電動機のトルク T [N·m] は？`, a:T, u:'N·m',
+      s:`T = P/ω = 60P/(2πN) = 60×${P*1000}/(2π×${N}) = <b>${f2(T)} N·m</b>` }; } },
+  { id:'c5', type:'計算', cat:'変圧器', t:'変圧器の効率', gen(){
+    const S = pick([50,100,200]), pf = pick([0.8,0.9,1.0]), al = pick([0.5,0.75,1]), Pi = pick([0.3,0.4,0.5,0.6,0.8]), Pc = pick([1.0,1.2,1.5,2.0,2.4]);
+    const out = al*S*pf, eta = out/(out+Pi+al*al*Pc)*100;
+    return { q:`定格容量 ${S} kVA の単相変圧器。鉄損 ${Pi} kW、全負荷銅損 ${Pc} kW。負荷率 ${al*100} %、力率 ${pf} で運転したときの効率 η [%] は？`, a:eta, u:'%',
+      s:`出力 = αS cosθ = ${al}×${S}×${pf} = ${f2(out)} kW<br>銅損 = α²Pc = ${al}²×${Pc} = ${f2(al*al*Pc)} kW<br>η = ${f2(out)}/(${f2(out)}+${Pi}+${f2(al*al*Pc)})×100 = <b>${f2(eta)} %</b>` }; } },
+  { id:'c6', type:'計算', cat:'変圧器', t:'最大効率になる負荷率', gen(){
+    const Pc = pick([1,1.6,2,2.5,4]), k = pick([0.25,0.36,0.49,0.64]), Pi = +(Pc*k).toFixed(3), al = Math.sqrt(k)*100;
+    return { q:`鉄損 ${Pi} kW、全負荷銅損 ${Pc} kW の変圧器が最大効率となる負荷率は何 % か。`, a:al, u:'%',
+      s:`最大効率は 鉄損 = 銅損 → α²Pc = Pi<br>α = √(Pi/Pc) = √(${Pi}/${Pc}) = √${k} = <b>${f2(al)} %</b>` }; } },
+  { id:'c7', type:'計算', cat:'変圧器', t:'電圧変動率', gen(){
+    const p = pick([1,1.5,2,2.5]), q = pick([3,4,5,6]), pf = pick([0.8,0.6,1.0]), sn = Math.sqrt(1-pf*pf), e = p*pf + q*sn;
+    return { q:`百分率抵抗降下 ${p} %、百分率リアクタンス降下 ${q} % の変圧器を力率 ${pf}（遅れ）で全負荷運転したときの電圧変動率 ε [%] は？（近似式で）`, a:e, u:'%',
+      s:`sinθ = √(1−${pf}²) = ${f2(sn)}<br>ε ≒ p cosθ + q sinθ = ${p}×${pf} + ${q}×${f2(sn)} = <b>${f2(e)} %</b>` }; } },
+  { id:'c8', type:'計算', cat:'照明', t:'直下の照度', gen(){
+    const I = pick([300,400,500,600,800,1000]), h = pick([2,2.5,3,4,5]), E = I/(h*h);
+    return { q:`光度 ${I} cd の点光源が高さ ${h} m にある。真下の床面の水平面照度 E [lx] は？`, a:E, u:'lx',
+      s:`逆2乗の法則 E = I/h² = ${I}/${h}² = <b>${f2(E)} lx</b>` }; } },
+  { id:'c9', type:'計算', cat:'電動機応用', t:'ポンプ用電動機の出力', gen(){
+    const Q = pick([1,1.5,2,3,4,6]), H = pick([10,15,20,30,40]), eta = pick([0.7,0.75,0.8]), P = 9.8*(Q/60)*H/eta;
+    return { q:`揚水量 ${Q} m³/min、全揚程 ${H} m、ポンプ効率 ${eta} のポンプを駆動する電動機の所要出力 P [kW] は？`, a:P, u:'kW',
+      s:`Q = ${Q}/60 = ${f2(Q/60)} m³/s（分→秒に直す！）<br>P = 9.8QH/η = 9.8×${f2(Q/60)}×${H}/${eta} = <b>${f2(P)} kW</b>` }; } },
+  { id:'c10', type:'計算', cat:'パワエレ', t:'チョッパの出力電圧', gen(){
+    const Vs = pick([100,200,300]), boost = Math.random() < .5, D = boost ? pick([0.2,0.4,0.5,0.6]) : pick([0.3,0.4,0.6,0.75]);
+    const Vo = boost ? Vs/(1-D) : D*Vs;
+    return { q:`入力電圧 ${Vs} V の${boost?'昇圧':'降圧'}チョッパを通流率 ${D} で運転した。出力電圧の平均値 Vo [V] は？（損失なし・電流連続）`, a:Vo, u:'V',
+      s: boost ? `昇圧チョッパ Vo = Vs/(1−D) = ${Vs}/(1−${D}) = <b>${f2(Vo)} V</b>` : `降圧チョッパ Vo = D·Vs = ${D}×${Vs} = <b>${f2(Vo)} V</b>` }; } },
+  { id:'c11', type:'計算', cat:'パワエレ', t:'三相全波整流の直流電圧', gen(){
+    const V = pick([200,400,440]), al = pick([0,30,45,60]), Ed = 1.35*V*Math.cos(RAD(al));
+    return { q:`三相ブリッジ（全波）サイリスタ整流回路。交流側の線間電圧 ${V} V、制御角 ${al}° のときの直流平均電圧 Ed [V] は？（電流連続、重なり角は無視）`, a:Ed, u:'V',
+      s:`Ed = 1.35 V cosα = 1.35×${V}×cos${al}° = <b>${f2(Ed)} V</b>` }; } },
+  { id:'c12', type:'計算', cat:'電熱', t:'電気湯沸かしの時間', gen(){
+    const m = pick([1,1.5,2,3,5]), T1 = pick([10,15,20]), T2 = pick([80,90,100]), P = pick([1,1.5,2]), eta = pick([0.8,0.85,0.9]);
+    const Q = 4.186*m*(T2-T1), t = Q/(P*eta)/60;
+    return { q:`${m} kg の水を ${T1} ℃ から ${T2} ℃ まで、消費電力 ${P} kW・効率 ${eta} の電気湯沸かし器で加熱する。必要な時間 [分] は？（水の比熱 4.186 kJ/(kg·K)）`, a:t, u:'分',
+      s:`Q = mcΔT = ${m}×4.186×${T2-T1} = ${f2(Q)} kJ<br>t = Q/(Pη) = ${f2(Q)}/(${P}×${eta}) = ${f2(Q/(P*eta))} 秒 = <b>${f2(t)} 分</b>` }; } },
+  { id:'c13', type:'計算', cat:'同期機', t:'短絡比と同期インピーダンス', gen(){
+    const Ks = pick([0.8,1.0,1.25,1.6,2.0]), Z = 100/Ks;
+    return { q:`短絡比 ${Ks} の三相同期発電機の百分率同期インピーダンス %Zs [%] は？`, a:Z, u:'%',
+      s:`Ks = 1/Zs[p.u.] → Zs = 1/${Ks} = ${f2(1/Ks)} p.u. = <b>${f2(Z)} %</b>` }; } },
+  { id:'c14', type:'計算', cat:'電気化学', t:'ファラデーの法則（銅の析出）', gen(){
+    const I = pick([5,10,20]), h = pick([1,2,5]), W = 63.5/(2*96500)*I*h*3600;
+    return { q:`硫酸銅水溶液に ${I} A の電流を ${h} 時間流した。陰極に析出する銅の質量 [g] は？（Cu の原子量 63.5、原子価 2、F = 96500 C/mol）`, a:W, u:'g',
+      s:`W = (1/F)(M/n)It = (1/96500)×(63.5/2)×${I}×${h*3600} = <b>${f2(W)} g</b>` }; } },
+  // ---- 応用（複合計算） ----
+  { id:'a1', type:'応用', cat:'誘導機', t:'機械出力から二次銅損', gen(){
+    const f = pick([50,60]), p = pick([4,6]), s = pick([3,4,5]), Po = pick([7.5,11,15,22,37]), Ns = 120*f/p, N = Ns*(1-s/100);
+    const P2 = Po/(1-s/100), Pc2 = P2*s/100;
+    return { q:`${f} Hz、${p} 極の三相誘導電動機が ${f2(N)} min⁻¹ で回転し、機械的出力 ${Po} kW を出している。二次銅損 Pc2 [kW] は？`, a:Pc2, u:'kW',
+      s:`① Ns = 120×${f}/${p} = ${Ns} min⁻¹<br>② s = (${Ns}−${f2(N)})/${Ns} = ${s/100}<br>③ P2 = Po/(1−s) = ${Po}/${1-s/100} = ${f2(P2)} kW<br>④ Pc2 = sP2 = <b>${f2(Pc2)} kW</b>（= Po·s/(1−s)）` }; } },
+  { id:'a2', type:'応用', cat:'誘導機', t:'比例推移と始動抵抗', gen(){
+    const r2 = pick([0.05,0.1,0.2,0.3]), s1 = pick([3,4,5]), R = r2/(s1/100) - r2;
+    return { q:`巻線形三相誘導電動機の二次巻線抵抗は1相あたり ${r2} Ω、定格トルクのときの滑りは ${s1} % である。始動時（s=1）に定格トルクを出すために二次回路に挿入する1相あたりの外部抵抗 R [Ω] は？`, a:R, u:'Ω',
+      s:`比例推移：r₂/s が等しければトルクは同じ<br>${r2}/${s1/100} = (${r2}+R)/1<br>R = ${f2(r2/(s1/100))} − ${r2} = <b>${f2(R)} Ω</b>` }; } },
+  { id:'a3', type:'応用', cat:'変圧器', t:'全日効率', gen(){
+    const S = pick([50,100]), pf = pick([1.0,0.8]), Pi = pick([0.2,0.3,0.5]), Pc = pick([1.0,1.2,1.5]), h1 = pick([6,8]), h2 = pick([6,8,10]);
+    const W = S*pf*(h1 + 0.5*h2), Wi = 24*Pi, Wc = Pc*(h1 + 0.25*h2), eta = W/(W+Wi+Wc)*100;
+    return { q:`${S} kVA の変圧器（鉄損 ${Pi} kW、全負荷銅損 ${Pc} kW）を、1日のうち全負荷で ${h1} 時間、1/2負荷で ${h2} 時間、残りは無負荷で運転した。力率 ${pf} のときの全日効率 [%] は？`, a:eta, u:'%',
+      s:`① 出力量 = ${S}×${pf}×(${h1}×1 + ${h2}×0.5) = ${f2(W)} kWh<br>② 鉄損量 = ${Pi}×24 = ${f2(Wi)} kWh（無負荷でも毎時かかる）<br>③ 銅損量 = ${Pc}×(1²×${h1} + 0.5²×${h2}) = ${f2(Wc)} kWh<br>④ η = ${f2(W)}/(${f2(W)}+${f2(Wi)}+${f2(Wc)})×100 = <b>${f2(eta)} %</b>` }; } },
+  { id:'a4', type:'応用', cat:'直流機', t:'分巻電動機の速度変化', gen(){
+    const V = pick([200,220]), Ra = pick([0.1,0.2]), Ia1 = pick([40,50]), N1 = pick([1200,1500]), Ia2 = Ia1*2;
+    const E1 = V - Ia1*Ra, E2 = V - Ia2*Ra, N2 = N1*E2/E1;
+    return { q:`端子電圧 ${V} V、電機子抵抗 ${Ra} Ω の直流分巻電動機が電機子電流 ${Ia1} A、${N1} min⁻¹ で運転中。負荷が増えて電機子電流が ${Ia2} A になったときの回転速度 [min⁻¹] は？（界磁電流一定、電機子反作用は無視）`, a:N2, u:'min⁻¹',
+      s:`① E1 = ${V} − ${Ia1}×${Ra} = ${f2(E1)} V<br>② E2 = ${V} − ${Ia2}×${Ra} = ${f2(E2)} V<br>③ φ一定なので N ∝ E → N2 = ${N1}×${f2(E2)}/${f2(E1)} = <b>${f2(N2)} min⁻¹</b>` }; } },
+  { id:'a5', type:'応用', cat:'電動機応用', t:'釣合いおもり付き巻上機', gen(){
+    const m = pick([2,3,4,5]), c = pick([1,1.5]), v = pick([30,45,60,90]), eta = pick([0.7,0.75,0.8]), P = 9.8*(m-c)*(v/60)/eta;
+    return { q:`かご＋荷物の質量 ${m} t、釣合いおもり ${c} t のエレベータを ${v} m/min で上昇させる。機械効率 ${eta} のとき電動機の所要出力 P [kW] は？`, a:P, u:'kW',
+      s:`① 正味の質量 = ${m} − ${c} = ${m-c} t<br>② v = ${v}/60 = ${f2(v/60)} m/s<br>③ P = 9.8Wv/η = 9.8×${m-c}×${f2(v/60)}/${eta} = <b>${f2(P)} kW</b>` }; } },
+  { id:'a6', type:'応用', cat:'照明', t:'斜め下の水平面照度', gen(){
+    const I = pick([500,800,1000,1200]), hd = pick([[3,4],[4,3],[2,2],[3,3],[4,4]]), h = hd[0], d = hd[1], r = Math.sqrt(h*h+d*d), E = I*h/Math.pow(r,3);
+    return { q:`光度 ${I} cd（全方向一様）の点光源が床から高さ ${h} m にある。光源の真下から水平に ${d} m 離れた床面の水平面照度 [lx] は？`, a:E, u:'lx',
+      s:`① 距離 r = √(${h}²+${d}²) = ${f2(r)} m<br>② cosθ = h/r = ${f2(h/r)}<br>③ Eh = I cosθ / r² = ${I}×${f2(h/r)}/${f2(r*r)} = <b>${f2(E)} lx</b>` }; } },
+  { id:'a7', type:'応用', cat:'同期機', t:'同期発電機の出力', gen(){
+    const V = 6600, E = pick([7000,7600,8000,8400]), Xs = pick([4,5,6,8]), d = pick([20,30,45]), P = V*E*Math.sin(RAD(d))/Xs/1e6;
+    return { q:`三相同期発電機。端子電圧（線間）${V} V、誘導起電力（線間）${E} V、同期リアクタンス 1相 ${Xs} Ω、負荷角 ${d}° のときの三相出力 P [MW] は？（電機子抵抗は無視）`, a:P, u:'MW',
+      s:`P = 3×(V/√3)(E/√3)sinδ/Xs = VE sinδ/Xs<br>= ${V}×${E}×sin${d}°/${Xs} = ${f2(P*1e6/1000)} kW = <b>${f2(P)} MW</b>` }; } },
+  { id:'a8', type:'応用', cat:'誘導機', t:'電圧低下時の滑り', gen(){
+    const s1 = pick([3,4,5]), k = pick([0.8,0.9,0.95]), s2 = s1/(k*k);
+    return { q:`滑り ${s1} % で運転している三相誘導電動機の電源電圧が ${k*100} % に低下した。負荷トルクが一定のとき、運転時の滑り [%] は？（滑りが小さい範囲で T ∝ sV² とする）`, a:s2, u:'%',
+      s:`T ∝ sV² でTが一定 → s1·V² = s2·(${k}V)²<br>s2 = s1/${k}² = ${s1}/${f2(k*k)} = <b>${f2(s2)} %</b>` }; } },
+  { id:'a9', type:'応用', cat:'変圧器', t:'短絡電流と%Z', gen(){
+    const S = pick([300,500,1000]), Z = pick([4,5,6]), In = S*1000/(Math.sqrt(3)*6600), Is = In*100/Z;
+    return { q:`定格容量 ${S} kVA、一次電圧 6.6 kV、百分率インピーダンス ${Z} % の三相変圧器の二次側端子で三相短絡が起きた。一次側の短絡電流 [A] は？（電源側インピーダンスは無視）`, a:Is, u:'A',
+      s:`① 定格電流 In = S/(√3V) = ${S*1000}/(√3×6600) = ${f2(In)} A<br>② Is = In×100/%Z = ${f2(In)}×100/${Z} = <b>${f2(Is)} A</b>` }; } }
+];
+const DRILLS = [...CARDS, ...CALCS];                       // 全ドリル
+const DMAP = Object.fromEntries(DRILLS.map(d => [d.id, d])); // ID→ドリル
+
+// ============================================================
+// データ
+// ============================================================
+const INIT = { rec:{}, dr:{}, log:{}, set:{ exam:'2027-02-21', newPerDay:6, r1:'2027-01-10' } }; // 初期データ
+let D = load();                                           // 全データ
+function load(){
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY));
+    if (d && d.rec) return { rec:d.rec, dr:d.dr||{}, log:d.log||{}, set:Object.assign({}, INIT.set, d.set||{}) };
+  }catch(e){}
+  return JSON.parse(JSON.stringify(INIT));
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(D)); }catch(e){ toast('保存に失敗しました'); } }
+
+// ===== 日付ユーティリティ =====
+function ymd(d){ const z = n => String(n).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+function addDays(s, n){ const d = new Date(s+'T00:00:00'); d.setDate(d.getDate()+n); return ymd(d); }
+function diffDays(a, b){ return Math.round((new Date(b+'T00:00:00') - new Date(a+'T00:00:00'))/864e5); }
+const today = ymd(new Date());                            // 今日の日付
+const $ = id => document.getElementById(id);              // 要素取得の短縮
+const esc = s => String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){ const e = $('toast'); e.innerHTML = t; e.classList.add('show'); clearTimeout(toast.tm); toast.tm = setTimeout(() => e.classList.remove('show'), 3200); }
+function shuffle(a){ for (let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+
+// ===== 過去問データ =====
+const qKey = (y, n) => y + '|' + n;                       // 問題キー
+const qLabel = k => { const [y, n] = k.split('|'); return `${y} 問${n}${+n >= 15 ? '(B)' : ''}`; };
+function getRec(k){                                       // 記録を取得（未記録なら初期値）
+  if (D.rec[k]) return D.rec[k];
+  const n = +k.split('|')[1];
+  return { cat:DEF_CAT[n], type:(n === 7 || n === 14) ? '暗記' : '計算', box:-1, due:null, hist:[], memo:'', reason:'' };
+}
+function ensureRec(k){ if (!D.rec[k]) D.rec[k] = getRec(k); return D.rec[k]; }
+const last = it => it.hist.length ? it.hist[it.hist.length-1] : null; // 最後の採点
+function isMastered(it){ const l = last(it); return it.box >= 3 && l && l.g >= 2; }      // 定着済み
+function isWeak(it){ return it.hist.some(h => h.g <= 1) && !isMastered(it); }          // 苦手（未克服）
+const wrongCount = it => it.hist.filter(h => h.g <= 1).length;                          // ×と△の回数
+
+// ===== 忘却曲線にもとづく次回復習日の計算 =====
+function schedule(it, type, g, base = today){             // base：解いた日（ここから次回日を数える）
+  const iv = TYPES[type].iv;                              // 復習間隔の配列
+  let b = it.box ?? -1;                                   // 現在の記憶段階
+  if (g === 0) b = 0;                                     // ×：最初から
+  else if (g === 1) b = Math.max(0, Math.min(b, 1));      // △：短い間隔に戻す
+  else if (g === 2) b = b + 1;                            // ○：1段階進む
+  else b = b + 2;                                         // ◎：2段階進む
+  b = Math.min(b, iv.length-1);
+  it.box = b;
+  let due = addDays(base, g === 0 ? 1 : iv[b]);           // 次回復習日
+  const cap = addDays(D.set.exam, -3);                    // 本番3日前＝総復習日
+  if (base < cap && due > cap) due = cap;
+  it.due = due;
+}
+function addLog(g, d = today){ const l = D.log[d] = D.log[d] || { n:0, ok:0 }; l.n++; if (g >= 2) l.ok++; }
+function subLog(g, d){ const l = D.log[d]; if (!l) return; l.n--; if (g >= 2) l.ok--; if (l.n <= 0) delete D.log[d]; }
+
+function replay(it, type){                                // 履歴を日付順に再計算（過去日付の記録・削除・種類変更に対応）
+  const hs = it.hist.slice().sort((a, b) => a.d.localeCompare(b.d) || (a.t || 0) - (b.t || 0)); // 日付順の履歴
+  it.hist = []; it.box = -1; it.due = null; delete it.cq;
+  hs.forEach(h => {
+    const ww = isWeak(it);                                // この回答の前に苦手だったか
+    it.hist.push(h); schedule(it, type, h.g, h.d);
+    if (ww && isMastered(it)) it.cq = h.d;
+  });
+}
+function gradeP(k, g, reason, memo, date = today){        // 過去問を採点（date：解いた日）
+  const it = ensureRec(k), hadCq = !!it.cq;               // 記録前に克服済みだったか
+  it.hist.push({ d:date, g, r: g <= 1 ? reason : '', t:Date.now() });
+  if (g <= 1 && reason) it.reason = reason;
+  if (memo !== undefined) it.memo = memo;
+  replay(it, it.type); addLog(g, date);
+  return !hadCq && !!it.cq;
+}
+function delHist(k, t, d){                                // 1件の記録を削除
+  const it = D.rec[k]; if (!it) return;
+  const i = it.hist.findIndex(h => (h.t || 0) === t && h.d === d); if (i < 0) return;
+  if (!confirm(`${qLabel(k)}（${d.replace(/-/g,'/')}）の記録を削除しますか？`)) return;
+  const h = it.hist.splice(i, 1)[0]; subLog(h.g, h.d); replay(it, it.type);
+  save(); render(); toast('🗑 記録を削除しました');
+}
+function gradeD(id, g){                                   // ドリルを採点
+  const it = D.dr[id] = D.dr[id] || { box:-1, due:null, hist:[] }, wasWeak = isWeak(it);
+  it.hist.push({ d:today, g });
+  schedule(it, DMAP[id].type, g); addLog(g);
+  if (wasWeak && isMastered(it)){ it.cq = today; return true; }
+  return false;
+}
+
+// ===== 出題リスト =====
+function dueP(types){                                     // 期限が来た過去問
+  return Object.entries(D.rec).filter(([k, r]) => r.due && r.due <= today && (!types || types.includes(r.type)))
+    .sort((a, b) => (isWeak(b[1]) - isWeak(a[1])) || a[1].due.localeCompare(b[1].due)).map(([k]) => ({ k:'p', key:k }));
+}
+function dueD(types){                                     // 期限が来たドリル
+  return DRILLS.filter(d => types.includes(d.type) && D.dr[d.id] && D.dr[d.id].due <= today).map(d => ({ k:'d', id:d.id }));
+}
+function newToday(){ return Object.values(D.dr).filter(x => x.hist[0] && x.hist[0].d === today).length; } // 今日新しく始めたドリル数
+function newD(types, n){                                  // 未学習のドリル
+  return n > 0 ? DRILLS.filter(d => types.includes(d.type) && !D.dr[d.id]).slice(0, n).map(d => ({ k:'d', id:d.id })) : [];
+}
+function slotItems(slot){                                 // 時間帯ごとのメニュー
+  const rest = Math.max(0, D.set.newPerDay - newToday());  // 今日あと何枚新規OKか
+  const nMem = Math.ceil(rest/2), nCal = rest - nMem;
+  if (slot === 'morning') return [...dueP(['計算','応用']), ...dueD(['計算','応用']), ...newD(['計算','応用'], nCal)];
+  if (slot === 'day') return [...dueD(['暗記']), ...newD(['暗記'], nMem)];
+  return dueP(['暗記']);
+}
+
+// ===== ロードマップ =====
+function phases(){
+  const E = D.set.exam;                                   // 試験日
+  return [
+    { n:'第1期 基礎固め＋過去問1周目', s:'', e:D.set.r1, d:'新しい年度から順に1日数問ずつ。分野と種類（暗記・計算・応用）を記録し、×はメモを書く。' },
+    { n:'第2期 2周目＋苦手集中', s:addDays(D.set.r1,1), e:addDays(E,-28), d:'×と△の問題を中心に。苦手克服タブで「克服」を増やす。分野TOP3を集中攻撃。' },
+    { n:'第3期 本番形式の年度演習', s:addDays(E,-27), e:addDays(E,-7), d:'90分タイマーで年度ごとに通し演習。60点超えを安定させる。時間配分を体に覚えさせる。' },
+    { n:'第4期 暗記総仕上げ', s:addDays(E,-6), e:addDays(E,-1), d:'新しい問題はやらない。暗記カード・苦手メモ・公式の総チェック。3日前は総復習日。睡眠を優先。' },
+    { n:'🤘 本番', s:E, e:E, d:'見直しで計算ミスを拾う。分からない問題は飛ばして最後に。' }
+  ];
+}
+function curPhase(){ return phases().find(p => (!p.s || today >= p.s) && today <= p.e) || null; }
+
+// ============================================================
+// 集計
+// ============================================================
+function yearScore(y){                                    // 年度別の推定得点
+  let a = 0, done = 0; const b = [];
+  for (let n = 1; n <= QN; n++){
+    const r = D.rec[qKey(y, n)], l = r && last(r);
+    if (l) done++;
+    const g = l ? l.g : -1;
+    if (n <= 14) a += g >= 2 ? 5 : 0;
+    else b.push(g >= 2 ? 10 : g === 1 ? 5 : 0);
+  }
+  return { score: a + b[0] + b[1] + Math.max(b[2], b[3]), done };
+}
+function streak(){ let s = 0, c = D.log[today] ? today : addDays(today, -1); while (D.log[c]){ s++; c = addDays(c, -1); } return s; }
+function allItems(){                                      // 過去問＋ドリルの記録一覧
+  return [...Object.entries(D.rec).map(([k, r]) => ({ src:'p', key:k, cat:r.cat, type:r.type, it:r })),
+          ...Object.entries(D.dr).filter(([id]) => DMAP[id]).map(([id, r]) => ({ src:'d', key:id, cat:DMAP[id].cat, type:DMAP[id].type, it:r }))];
+}
+function catStats(){                                      // 分野別の成績
+  const st = {}; CATS.forEach(c => st[c] = { n:0, ok:0, weak:0, cq:0 });
+  allItems().forEach(x => { const s = st[x.cat]; if (!s) return; x.it.hist.forEach(h => { s.n++; if (h.g >= 2) s.ok++; }); if (isWeak(x.it)) s.weak++; if (x.it.cq) s.cq++; });
+  return CATS.map(c => ({ c, ...st[c], acc: st[c].n ? st[c].ok/st[c].n*100 : null,
+    score: st[c].n ? (1 - st[c].ok/st[c].n)*100 + st[c].weak*8 : -1 })).sort((a, b) => b.score - a.score);
+}
+
+// ============================================================
+// 画面描画
+// ============================================================
+function renderToday(){
+  const left = diffDays(today, D.set.exam), ph = curPhase();
+  $('examTxt').textContent = D.set.exam.replace(/-/g, '/');
+  $('cdDays').textContent = left >= 0 ? left : '終了';
+  $('phaseTxt').textContent = ph ? `▶ ${ph.n}：${ph.d}` : '';
+  const total = YEARS.length * QN, done = Object.values(D.rec).filter(r => r.hist.length).length; // 全問題数・挑戦済み数
+  $('sAll').textContent = total; $('sDone').textContent = done;
+  let n = 0, ok = 0; for (let i = 0; i < 30; i++){ const l = D.log[addDays(today, -i)]; if (l){ n += l.n; ok += l.ok; } }
+  $('sAcc').textContent = n ? Math.round(ok/n*100) + '%' : '-';
+  const items = allItems();
+  $('sWeak').textContent = items.filter(x => isWeak(x.it)).length;
+  $('sCq').textContent = items.filter(x => x.it.cq).length;
+  $('sStreak').textContent = streak();
+  const best = YEARS.map(y => ({ y, ...yearScore(y) })).filter(s => s.done === QN).sort((a, b) => b.score - a.score)[0];
+  $('sBest').textContent = best ? best.score + '点' : '-';
+  $('sBest').style.color = best && best.score >= 60 ? 'var(--gd)' : '';
+  const gp = done/total*100;
+  $('r1Txt').textContent = `${done} / ${total} 問（${gp.toFixed(1)}%）目標日 ${D.set.r1.replace(/-/g,'/')}`; $('r1Bar').style.width = gp + '%';
+  const dl = diffDays(today, D.set.r1) + 1;               // 1周目目標までの残り日数
+  $('quotaTxt').textContent = done >= total ? '🎉 過去問1周完了！2周目は苦手克服タブで。'
+    : dl > 0 ? `🎯 1周目を目標日に終えるには：1日あたり 新しい過去問 ${Math.ceil((total-done)/dl)} 問（＋復習）` : '⚠ 1周目の目標日を過ぎました。設定で目標日を見直すか、新しい年度を優先しましょう。';
+  $('nMorning').textContent = slotItems('morning').length;
+  $('nDay').textContent = slotItems('day').length;
+  const miss = items.filter(x => { const l = last(x.it); return l && l.d === today && l.g <= 1; }); // 今日のミス
+  $('nNight').textContent = slotItems('night').length + (miss.length ? `＋見直し${miss.length}` : '');
+  $('todayMiss').innerHTML = miss.length ? miss.map(x => `<div class="item"><div class="grow"><b>${x.src === 'p' ? qLabel(x.key) : DMAP[x.key].t}</b> <span class="chip">${x.cat}</span><span class="chip t${x.type}">${x.type}</span>
+      ${x.src === 'p' && x.it.memo ? `<div class="memo">📝 ${esc(x.it.memo)}</div>` : x.src === 'd' && DMAP[x.key].a ? `<div class="memo">💡 ${esc(DMAP[x.key].a)}</div>` : '<br><small>メモなし：ポイントを1行書いておくと翌日の復習が楽になります</small>'}</div></div>`).join('')
+    : '<div class="item"><small>今日のミスはまだありません。間違えた問題はここに集まります。</small></div>';
+  const cs = catStats().filter(c => c.n > 0).slice(0, 3);
+  $('focusCats').innerHTML = cs.length ? cs.map((c, i) => `<div class="item"><div class="grow"><b style="color:var(--rb)">${i+1}. ${c.c}</b>　正答率 ${Math.round(c.acc)}%・苦手 ${c.weak}問<br><small>💡 ${CAT_TIP[c.c]}</small></div></div>`).join('')
+    : '<div class="item"><small>過去問を記録すると、弱い分野が自動で分かります。</small></div>';
+  $('phases').innerHTML = phases().map(p => { const cls = today > p.e ? 'past' : ((!p.s || today >= p.s) ? 'now' : '');
+    return `<div class="phase ${cls}">${cls === 'past' ? '✅' : cls === 'now' ? '▶' : '　'} <b>${p.n}</b>（${p.s ? p.s.slice(5).replace('-','/') : '今日'}〜${p.e.slice(5).replace('-','/')}）<br><small>${p.d}</small></div>`; }).join('');
+  syncQuick();
+  renderQLogs();
+}
+
+// ===== 1問ずつスピード記録・重複エラーチェック・検索抽出 =====
+let lgResFilter = '';                                     // 記録履歴の正誤フィルタ状態（'' / 'wrong' / 'g0' / 'g1' / 'ok'）
+
+function showQkErr(msg){                                  // ダブり入力エラー枠を表示
+  const el = $('qkErr'); if (!el) return;
+  if (!msg){ el.classList.remove('on'); el.innerHTML = ''; return; }
+  el.innerHTML = msg; el.classList.add('on');
+}
+function checkDup(k, dt, allowReview){                    // 問題のダブり入力チェック（戻り値：エラー文字列またはnull）
+  const r = D.rec[k];
+  if (!r || !r.hist.length) return null;                  // 未記録ならOK
+  const sameDay = r.hist.find(h => h.d === dt);           // 同じ日に既に記録があるか
+  if (sameDay){
+    return `⛔ エラー：【${qLabel(k)}】は同じ日（${dt.replace(/-/g,'/')}）に「${GR[sameDay.g].s} ${GR[sameDay.g].n}」で記録済みです！問題のダブり入力はできません。（修正したい場合は下の履歴の「編集」または「削除」を使ってください）`;
+  }
+  if (!allowReview){
+    const l = last(r);                                    // 過去の最新記録
+    return `⛔ エラー：【${qLabel(k)}】は既に ${l.d.replace(/-/g,'/')} に「${GR[l.g].s} ${GR[l.g].n}」で記録済みです！（2周目以降の復習として追加記録する場合は「記録済みの問題への追加記録を許可する」にチェックを入れてください）`;
+  }
+  return null;
+}
+function syncQuick(fromSelect = true){                    // 選択中の年度・番号に合わせて分野・種類・履歴を表示
+  const y = $('qkYear').value, n = +$('qkNum').value; if (!y || !n) return;
+  const dt = $('qkDate').value || today;                  // 選択中の日付
+  const k = qKey(y, n), r = getRec(k), l = last(r);       // 問題キー・記録データ
+  $('qkCat').value = r.cat;
+  $('qkType').value = r.type;
+  $('qkReason').value = r.reason || REASONS[0];
+  $('qkMemo').value = r.memo || '';
+  $('qkStat').innerHTML = l
+    ? `📌 <b>${qLabel(k)}</b> の前回結果：<span class="chip">${GR[l.g].s} ${GR[l.g].n}</span>（全${r.hist.length}回：${r.hist.map(h => GR[h.g].s).join('→')}／前回日 ${l.d.replace(/-/g,'/')}／次回予定 ${r.due ? r.due.replace(/-/g,'/') : '-'}）`
+    : `📌 <b>${qLabel(k)}</b> はまだ未記録です（${n >= 15 ? 'B問題・10点' : 'A問題・5点'}）`;
+  if (fromSelect) showQkErr('');                          // 問題を選び直した時点ではエラー枠を消す
+}
+function quickRec(g){                                     // 1問ずつ記録ボタンの処理
+  const dt = $('qkDate').value || today;                  // 解いた日
+  const y = $('qkYear').value, n = +$('qkNum').value;     // 年度・問題番号
+  const k = qKey(y, n);                                   // 問題キー
+  const dupMsg = checkDup(k, dt, $('qkAllowDup') && $('qkAllowDup').checked); // ダブり検査
+  if (dupMsg){
+    showQkErr(dupMsg);
+    toast(dupMsg);
+    return;
+  }
+  showQkErr('');
+  const it = ensureRec(k);                                // 記録オブジェクト
+  it.cat = $('qkCat').value;
+  it.type = $('qkType').value;
+  const rs = $('qkReason').value === REASONS[0] ? '' : $('qkReason').value; // ミスの原因
+  const mm = $('qkMemo').value.trim();                    // 1行メモ
+  const cq = gradeP(k, g, rs, mm, dt);                    // 採点と復習スケジュール計算
+  save();
+  if (cq) toast(`🏆 ${qLabel(k)} 苦手克服！記憶に定着しました！`);
+  else if (g <= 1) toast(`${GR[g].s} ${qLabel(k)} を記録！次回復習：${it.due.slice(5).replace('-','/')}`);
+  else toast(`⭕ ${qLabel(k)}（${GR[g].s}）を記録！次回：${it.due.slice(5).replace('-','/')}`);
+  if ($('qkAuto').checked){                               // 自動で次の問題へ進める（未記録の問題を優先探索）
+    let ny = y, nn = n;
+    for (let step = 0; step < YEARS.length * QN; step++){
+      if (nn < QN) nn++;
+      else {
+        const yi = YEARS.indexOf(ny);
+        if (yi >= 0 && yi < YEARS.length - 1){ ny = YEARS[yi + 1]; nn = 1; }
+        else break;
+      }
+      if (($('qkAllowDup') && $('qkAllowDup').checked) || !D.rec[qKey(ny, nn)] || !D.rec[qKey(ny, nn)].hist.length) break;
+    }
+    $('qkYear').value = ny; $('qkNum').value = nn;
+  }
+  render();
+}
+function setLgRes(v){                                     // ワンタップ正誤抽出ボタンの切り替え
+  lgResFilter = v;
+  document.querySelectorAll('#lgQuickBar .fbtn').forEach(b => b.classList.toggle('on', b.dataset.res === v));
+  renderQLogs();
+}
+function getFilteredLogs(){                               // 検索条件に一致する履歴リストを取得
+  const fy = $('lgYear') ? $('lgYear').value : '';        // 年度フィルタ
+  const fn = $('lgNum') ? $('lgNum').value : '';          // 番号フィルタ
+  const fc = $('lgCat') ? $('lgCat').value : '';          // 分野フィルタ
+  const ft = $('lgType') ? $('lgType').value : '';        // 種類フィルタ
+  const fr = $('lgReason') ? $('lgReason').value : '';    // ミス原因フィルタ
+  const kw = ($('lgKw') ? $('lgKw').value : '').trim().toLowerCase(); // キーワード
+  const uniq = $('lgUniq') && $('lgUniq').checked;        // 問題ごとに最新1件にまとめるか
+  const all = [];
+  Object.entries(D.rec).forEach(([k, r]) => {
+    const [y, n] = k.split('|');
+    r.hist.forEach(h => all.push({ k, y, n:+n, cat:r.cat, type:r.type, memo:r.memo, reason:h.r || r.reason || '', due:r.due, d:h.d, g:h.g, r:h.r, t:h.t || 0 }));
+  });
+  all.sort((a, b) => b.d.localeCompare(a.d) || b.t - a.t);
+  const seen = new Set();                                 // 重複排除用セット
+  return all.filter(x => {
+    if (uniq){ if (seen.has(x.k)) return false; seen.add(x.k); }
+    if (lgResFilter === 'wrong' && x.g > 1) return false;
+    if (lgResFilter === 'g0' && x.g !== 0) return false;
+    if (lgResFilter === 'g1' && x.g !== 1) return false;
+    if (lgResFilter === 'ok' && x.g < 2) return false;
+    if (fy && x.y !== fy) return false;
+    if (fn && String(x.n) !== fn) return false;
+    if (fc && x.cat !== fc) return false;
+    if (ft && x.type !== ft) return false;
+    if (fr && x.reason !== fr) return false;
+    if (kw){
+      const hay = `${x.y} 問${x.n} ${qLabel(x.k)} ${x.cat} ${x.type} ${x.memo || ''} ${x.reason || ''} ${x.d}`.toLowerCase();
+      if (!hay.includes(kw)) return false;
+    }
+    return true;
+  });
+}
+function renderQLogs(){                                   // 検索・抽出した過去問履歴一覧を描画
+  const list = getFilteredLogs();                         // フィルタ後の配列
+  const wrongCnt = list.filter(x => x.g <= 1).length;     // 抽出中の間違い件数
+  if ($('lgCount')){
+    $('lgCount').innerHTML = `抽出結果：<b>${list.length}</b> 件（うち間違い ×・△：<b style="color:var(--rb)">${wrongCnt}</b> 件）`;
+  }
+  $('qLogs').innerHTML = list.length ? list.slice(0, 100).map(x => {
+    const badge = x.g >= 2 ? `<span class="ok">${GR[x.g].s} ${GR[x.g].n}</span>` : `<span class="ng">${GR[x.g].s} ${GR[x.g].n}</span>`; // 正誤表示
+    return `<div class="item"><div class="grow">
+      <b>${x.d.replace(/-/g,'/')}</b>　<b style="color:var(--gd)">${qLabel(x.k)}</b>　${badge}
+      <span class="chip">${x.cat}</span><span class="chip t${x.type}">${x.type}</span>
+      <small>次回：${x.due ? x.due.slice(5).replace('-','/') : '-'}${x.reason ? '｜原因：' + esc(x.reason) : ''}</small>
+      ${x.memo ? `<div class="memo">📝 ${esc(x.memo)}</div>` : ''}
+    </div>
+    <button class="sub" style="padding:.25rem .6rem;font-size:.8rem" onclick="openQ('${x.k}')">編集・再採点</button>
+    <button class="sub" style="padding:.25rem .6rem;font-size:.8rem" onclick="delHist('${x.k}',${x.t},'${x.d}')">削除</button></div>`;
+  }).join('') : '<div class="item"><small>条件に一致する記録がありません。</small></div>';
+}
+function practiceFiltered(){                              // 抽出中の問題をまとめて演習セッションで開始
+  const keys = [...new Set(getFilteredLogs().map(x => x.k))]; // 重複を除いた問題キー一覧
+  if (!keys.length){ toast('抽出された問題がありません'); return; }
+  startSession(`🔍 抽出した過去問（${keys.length}問）`, keys.slice(0, 30).map(k => ({ k:'p', key:k })));
+}
+function dedupAll(){                                      // 既存の同日ダブり記録を一括整理
+  let removed = 0;                                        // 削除したダブり件数
+  Object.entries(D.rec).forEach(([k, r]) => {
+    const byDate = {};                                    // 日付ごとの最新1件を保持
+    r.hist.forEach(h => {
+      if (byDate[h.d]){ subLog(byDate[h.d].g, h.d); removed++; }
+      byDate[h.d] = h;
+    });
+    const nextHist = Object.values(byDate);
+    if (nextHist.length !== r.hist.length){
+      r.hist = nextHist;
+      replay(r, r.type);
+    }
+  });
+  if (!removed){ toast('✅ 同じ日のダブり記録はありませんでした'); return; }
+  save(); render();
+  toast(`🧹 同じ日に重複していた記録を ${removed} 件整理しました！`);
+}
+function renderYearSheet(){                               // 選択した年度の問1〜18の一覧シートを描画
+  const y = $('mpYear').value; if (!y) return;            // 選択年度
+  const s = yearScore(y);                                 // 年度スコア
+  $('mpYearScore').innerHTML = `現在の得点：<span style="color:${s.score >= 60 ? 'var(--gd)' : 'var(--rb)'}">${s.score}点</span> / 100点（記録済 ${s.done}/${QN}問）${s.score >= 60 ? ' 🎉合格圏！' : ''}`;
+  let h = '<table class="tbl"><tr><th>番号</th><th>分野</th><th>種類</th><th>現在</th><th>ワンタップで1問ずつ記録（×間違い / △うろ覚え / ○正解 / ◎完璧）</th><th>次回</th></tr>';
+  for (let n = 1; n <= QN; n++){
+    const k = qKey(y, n), r = getRec(k), l = last(r);     // 各問のデータ
+    const bns = GR.map((g, i) => `<button class="gb${i}" style="padding:.25rem .55rem;font-size:.82rem;margin-right:3px;${l && l.g === i ? 'outline:2px solid #fff;font-weight:900' : ''}" onclick="sheetRec('${k}',${i})">${g.s}${g.n}</button>`).join('');
+    h += `<tr>
+      <td><b style="cursor:pointer;text-decoration:underline;color:var(--rb)" onclick="openQ('${k}')" title="タップでメモ・詳細編集">問${n}${n >= 15 ? '(B)' : ''}</b></td>
+      <td><select style="padding:.2rem;font-size:.82rem;width:auto" onchange="chgMeta('${k}','cat',this.value)">${CATS.map(c => `<option ${c === r.cat ? 'selected' : ''}>${c}</option>`).join('')}</select></td>
+      <td><select style="padding:.2rem;font-size:.82rem;width:auto" onchange="chgMeta('${k}','type',this.value)">${Object.keys(TYPES).map(t => `<option ${t === r.type ? 'selected' : ''}>${t}</option>`).join('')}</select></td>
+      <td>${l ? `<b class="${l.g >= 2 ? 'ok' : 'ng'}">${GR[l.g].s}</b> <small>(${r.hist.length}回)</small>` : '<small style="color:var(--dim)">未</small>'}</td>
+      <td>${bns}</td>
+      <td><small>${r.due ? r.due.slice(5).replace('-','/') : '-'}</small></td>
+    </tr>`;
+  }
+  $('yearSheet').innerHTML = h + '</table>';
+}
+function chgMeta(k, field, val){                          // 一覧シートから分野・種類を変更
+  const it = ensureRec(k); it[field] = val;
+  if (field === 'type') replay(it, it.type);
+  save(); render();
+}
+function sheetRec(k, g){                                  // 一覧シートから1問ずつワンタップ記録
+  const dt = $('mpDate').value || today;                  // 解いた日
+  const dupMsg = checkDup(k, dt, true);                   // 同じ日のダブり入力をチェック
+  if (dupMsg){ toast(dupMsg); return; }
+  const cq = gradeP(k, g, '', undefined, dt);
+  save(); render();
+  if (cq) toast(`🏆 ${qLabel(k)} 苦手克服！`);
+  else toast(`${GR[g].s} ${qLabel(k)} を記録しました`);
+}
+
+function renderMap(){
+  renderYearSheet();
+  let h = '<tr><th></th>' + Array.from({ length:QN }, (_, i) => (i === 14 ? '<th></th>' : '') + `<th>${i+1}</th>`).join('') + '<th>得点</th></tr>';
+  h += '<tr><th></th><th colspan="14" style="text-align:center;color:var(--rb)">A問題（各5点）</th><th></th><th colspan="4" style="text-align:center;color:var(--gd)">B問題（各10点）</th><th></th></tr>';
+  YEARS.forEach(y => {
+    h += `<tr><th class="y">${y}</th>`;
+    for (let n = 1; n <= QN; n++){
+      const k = qKey(y, n), r = D.rec[k], l = r && last(r);
+      if (n === 15) h += '<td class="sep"></td>';
+      h += `<td class="c ${l ? 'g' + l.g : ''} ${r && r.due && r.due <= today ? 'due' : ''}" onclick="openQ('${k}')" title="${qLabel(k)} ${r ? r.cat + '・' + r.type : ''}">${l ? GR[l.g].s : ''}</td>`;
+    }
+    const s = yearScore(y);
+    h += `<td class="sc">${s.done ? `<b class="${s.score >= 60 ? 'pass' : ''}">${s.score}</b>点 <small>(${s.done}/${QN})</small>` : ''}</td></tr>`;
+  });
+  $('mapTbl').innerHTML = h;
+}
+
+function weakRow(x){                                      // 苦手リストの1行
+  const it = x.it, l = last(it), need = Math.max(0, 3 - (l && l.g >= 2 ? it.box : 0)); // 克服まであと何回
+  const name = x.src === 'p' ? qLabel(x.key) : '🃏 ' + DMAP[x.key].t;
+  return `<div class="item"><div class="grow"><b>${name}</b> <span class="chip">${x.cat}</span><span class="chip t${x.type}">${x.type}</span>
+    <small>×△ ${wrongCount(it)}回・前回 ${GR[l.g].s}・次回 ${it.due ? it.due.slice(5).replace('-','/') : '-'}${it.reason ? '・原因：' + it.reason : ''}</small>
+    <div class="steps">${[0,1,2].map(i => `<i class="${i < 3 - need ? 'on' : ''}"></i>`).join('')}<small style="margin-left:.4rem">克服まであと${need}回の正解</small></div>
+    ${x.src === 'p' && it.memo ? `<div class="memo">📝 ${esc(it.memo)}</div>` : ''}</div>
+    <button class="sub" onclick="${x.src === 'p' ? `openQ('${x.key}')` : `startSession('苦手ドリル',[{k:'d',id:'${x.key}'}])`}">解く</button></div>`;
+}
+function renderWeak(){
+  const fc = $('wkCat').value, ft = $('wkType').value;    // 絞り込み条件
+  const ws = allItems().filter(x => isWeak(x.it) && (!fc || x.cat === fc) && (!ft || x.type === ft))
+    .sort((a, b) => wrongCount(b.it) - wrongCount(a.it) || (a.it.due || '').localeCompare(b.it.due || ''));
+  $('weakList').innerHTML = ws.length ? ws.map(weakRow).join('') : '<div class="item"><small>未克服の苦手はありません🔥 ×や△をつけた問題がここに集まります。</small></div>';
+  const rc = {}; Object.values(D.rec).forEach(r => r.hist.forEach(h => { if (h.r) rc[h.r] = (rc[h.r] || 0) + 1; }));
+  const rs = Object.entries(rc).sort((a, b) => b[1] - a[1]);
+  $('reasonList').innerHTML = rs.length ? rs.map(([r, n]) => `<div class="item"><div class="grow"><b>${r}</b>　<span style="color:var(--rb)">${n}回</span><br><small>💡 ${REASON_TIP[r] || ''}</small></div></div>`).join('')
+    : '<div class="item"><small>×・△のときにミスの原因を選ぶと、ここに対策が表示されます。</small></div>';
+  const cq = allItems().filter(x => x.it.cq).sort((a, b) => b.it.cq.localeCompare(a.it.cq));
+  $('cqList').innerHTML = cq.length ? cq.slice(0, 40).map(x => `<div class="item"><span>🏆</span><div class="grow"><b>${x.src === 'p' ? qLabel(x.key) : DMAP[x.key].t}</b> <span class="chip">${x.cat}</span><small>${x.it.cq.replace(/-/g,'/')} 克服</small></div></div>`).join('')
+    : '<div class="item"><small>苦手を3回連続で正解すると「克服」としてここに刻まれます。</small></div>';
+}
+
+function renderDrill(){
+  const rest = Math.max(0, D.set.newPerDay - newToday());
+  ['暗記','計算','応用'].forEach(t => {
+    const all = DRILLS.filter(d => d.type === t), due = dueD([t]).length, nw = all.filter(d => !D.dr[d.id]).length;
+    const ms = all.filter(d => D.dr[d.id] && isMastered(D.dr[d.id])).length;
+    $('dn' + t).textContent = due + '枚';
+    $('ds' + t).textContent = `期限が来た復習 ${due}／未学習 ${nw}／定着 ${ms} / 全${all.length}（今日の新規あと${rest}）`;
+  });
+  $('drillList').innerHTML = '<table class="tbl"><tr><th>種類</th><th>分野</th><th>内容</th><th>記憶の段階</th><th>次回</th></tr>' + DRILLS.map(d => {
+    const r = D.dr[d.id];
+    return `<tr><td><span class="chip t${d.type}">${TYPES[d.type].ic}${d.type}</span></td><td>${d.cat}</td><td>${esc(d.t)}</td>
+      <td><div class="steps">${[0,1,2,3,4,5,6].map(i => `<i class="${r && r.box >= i ? 'on' : ''}"></i>`).join('')}</div></td>
+      <td><small>${r ? (r.due <= today ? '<span class="ng">今日</span>' : r.due.slice(5).replace('-','/')) : '未学習'}</small></td></tr>`; }).join('') + '</table>';
+}
+
+function bars(cv, vals, labels, max, unit){              // 棒グラフ描画
+  const g = cv.getContext('2d'), W = cv.width = (cv.clientWidth || 500)*2, H = cv.height = 400; // 解像度
+  g.clearRect(0, 0, W, H); const bw = W/vals.length;     // 棒の幅
+  vals.forEach((v, i) => {
+    const h = max ? (v/max)*(H-60) : 0;                   // 棒の高さ
+    const gr = g.createLinearGradient(0, H-h, 0, H); gr.addColorStop(0, '#ff1a1a'); gr.addColorStop(1, '#660000');
+    g.fillStyle = v ? gr : '#222'; g.fillRect(i*bw + bw*.15, H-30-Math.max(h,3), bw*.7, Math.max(h,3));
+    g.fillStyle = '#aaa'; g.font = '20px sans-serif'; g.textAlign = 'center'; g.fillText(labels[i], i*bw + bw/2, H-8);
+    if (v){ g.fillStyle = '#fff'; g.fillText(Math.round(v) + unit, i*bw + bw/2, H-36-h); }
+  });
+}
+function renderAna(){
+  const v1 = [], v2 = [], lb = [];
+  for (let i = 13; i >= 0; i--){ const d = addDays(today, -i), l = D.log[d]; v1.push(l ? l.n : 0); v2.push(l && l.n ? l.ok/l.n*100 : 0); lb.push(d.slice(8)); }
+  bars($('ch1'), v1, lb, Math.max(10, ...v1), ''); bars($('ch2'), v2, lb, 100, '');
+  $('catTbl').innerHTML = '<table class="tbl"><tr><th>分野</th><th>演習回数</th><th>正答率</th><th>未克服</th><th>克服</th><th>克服のコツ</th></tr>' + catStats().map(c =>
+    `<tr><td><b>${c.c}</b></td><td>${c.n}</td><td>${c.acc === null ? '-' : `<div class="mini"><div style="width:${c.acc}%;background:${c.acc >= 70 ? 'var(--gd)' : 'var(--rb)'}"></div></div>${Math.round(c.acc)}%`}</td>
+      <td class="${c.weak ? 'ng' : ''}">${c.weak}</td><td>${c.cq}</td><td><small>${CAT_TIP[c.c]}</small></td></tr>`).join('') + '</table>';
+  const ts = {}; ['暗記','計算','応用'].forEach(t => ts[t] = { n:0, ok:0, weak:0 });
+  allItems().forEach(x => { const s = ts[x.type]; if (!s) return; x.it.hist.forEach(h => { s.n++; if (h.g >= 2) s.ok++; }); if (isWeak(x.it)) s.weak++; });
+  $('typeTbl').innerHTML = '<table class="tbl"><tr><th>種類</th><th>演習</th><th>正答率</th><th>未克服</th></tr>' + Object.entries(ts).map(([t, s]) =>
+    `<tr><td><span class="chip t${t}">${TYPES[t].ic}${t}</span></td><td>${s.n}</td><td>${s.n ? Math.round(s.ok/s.n*100) + '%' : '-'}</td><td>${s.weak}</td></tr>`).join('') + '</table>'
+    + '<div style="font-size:.85rem;color:var(--dim);margin-top:.5rem">🧠暗記が弱い→寝る前の復習を増やす　🧮計算が弱い→朝に計算ドリル　🧩応用が弱い→同じ分野を3年度分まとめて解く</div>';
+  const ys = YEARS.map(y => ({ y, ...yearScore(y) })).filter(s => s.done);
+  $('yearTbl').innerHTML = ys.length ? '<table class="tbl"><tr><th>年度</th><th>実施</th><th>推定得点</th></tr>' + ys.map(s =>
+    `<tr><td>${s.y}</td><td>${s.done}/${QN}</td><td><b style="color:${s.score >= 60 ? 'var(--gd)' : 'var(--rb)'}">${s.score}点</b> ${s.done === QN ? (s.score >= 60 ? '✅合格ライン' : '') : ''}</td></tr>`).join('') + '</table>'
+    : '<small style="color:var(--dim)">年度マップで記録すると表示されます。</small>';
+}
+
+function renderSet(){ $('setExam').value = D.set.exam; $('setNew').value = D.set.newPerDay; $('setR1').value = D.set.r1; }
+
+let curTab = 'today';                                     // 表示中のタブ
+function render(){
+  renderToday();
+  if (curTab === 'map') renderMap();
+  if (curTab === 'weak') renderWeak();
+  if (curTab === 'drill') renderDrill();
+  if (curTab === 'ana') renderAna();
+  if (curTab === 'set') renderSet();
+}
+
+// ============================================================
+// 学習セッション
+// ============================================================
+let S = null;                                             // 実行中のセッション
+function openModal(){ $('modal').classList.add('on'); }
+function closeModal(){ $('modal').classList.remove('on'); if (S && S.n) toast(`🤘 ${S.n}問 お疲れさま！（正解 ${S.ok}）`); S = null; render(); }
+function startSession(title, items){
+  if (!items.length){ toast('今は対象の問題がありません🔥'); return; }
+  S = { title, q:items, i:0, n:0, ok:0, cq:0 };
+  showItem(); openModal();
+}
+function startSlot(slot){
+  const names = { morning:'🌅 朝：計算・応用', day:'☀ スキマ：暗記カード', night:'🌙 寝る前：暗記の復習' };
+  const it = slotItems(slot);
+  if (!it.length && slot === 'night'){ toast('暗記の復習はありません。「今日のミス見直しリスト」を読んで寝ましょう🌙'); return; }
+  startSession(names[slot], it);
+}
+function startWeak(all){
+  let it = allItems().filter(x => isWeak(x.it) && (all || x.it.due <= today));
+  it = it.sort((a, b) => wrongCount(b.it) - wrongCount(a.it)).slice(0, 20).map(x => x.src === 'p' ? { k:'p', key:x.key } : { k:'d', id:x.key });
+  startSession(all ? '💪 苦手まとめ演習' : '🔥 苦手（期限分）', it);
+}
+function startDrill(t){
+  if (t === 'ALL') return startSession('🎲 ランダム10問', shuffle(DRILLS.map(d => ({ k:'d', id:d.id }))).slice(0, 10));
+  const rest = Math.max(0, D.set.newPerDay - newToday());
+  let it = [...dueD([t]), ...newD([t], rest)];
+  if (!it.length) it = shuffle(DRILLS.filter(d => d.type === t).map(d => ({ k:'d', id:d.id }))).slice(0, 5); // 期限分がなければ自由演習
+  startSession(TYPES[t].ic + ' ' + t, it);
+}
+function openQ(k){ startSession('過去問の記録', [{ k:'p', key:k }]); }
+
+function gradeBtns(sug){                                  // 採点ボタン
+  return '<div class="gbtns">' + GR.map((g, i) => `<button class="gb${i} ${sug === i ? 'sug' : ''}" onclick="gradeCur(${i})"><b>${g.s}</b>${g.n}</button>`).join('') + '</div>';
+}
+function showItem(){
+  const x = S.q[S.i];                                     // 現在の問題
+  $('mHead').textContent = `${S.title}　${S.i+1} / ${S.q.length}`;
+  let h = '';
+  if (x.k === 'p'){
+    const r = getRec(x.key), l = last(r);
+    h = `<div class="qtitle">${qLabel(x.key)}</div>
+      <div class="row"><div><label>分野</label><select id="eCat">${CATS.map(c => `<option ${c === r.cat ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+      <div><label>種類（復習間隔が変わります）</label><select id="eType">${Object.keys(TYPES).map(t => `<option ${t === r.type ? 'selected' : ''}>${t}</option>`).join('')}</select></div></div>
+      <div class="qtext">📖 過去問題集で <b>${qLabel(x.key)}</b> を解いて、自己採点してください。<br><small style="color:var(--dim)">💡 ${CAT_TIP[r.cat]}</small></div>
+      ${r.memo ? `<div class="memo">📝 前回のメモ：${esc(r.memo)}</div>` : ''}
+      ${l ? `<small style="color:var(--dim)">これまで：${r.hist.map(h => GR[h.g].s).join(' ')}　（記憶の段階 ${r.box + 1}/7）</small>` : ''}
+      <label>ミスの原因（×・△のとき）</label><select id="eReason">${REASONS.map(t => `<option ${t === r.reason ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      <label>次に思い出すべきポイント（自分用メモ・復習時に表示）</label><textarea id="eMemo" rows="2" placeholder="例：Pc2 = sP2。出力から求めるときは P2 = Po/(1−s)">${esc(r.memo)}</textarea>
+      ${gradeBtns(-1)}`;
+  } else {
+    const d = DMAP[x.id];
+    h = `<div><span class="chip">${d.cat}</span><span class="chip t${d.type}">${TYPES[d.type].ic}${d.type}</span> <b>${esc(d.t)}</b></div>`;
+    if (d.type === '暗記'){
+      h += `<div class="qtext" style="font-size:1.2rem">${esc(d.t)}</div>
+        <div id="dAns" style="display:none"><div class="ans">${esc(d.a)}</div>${gradeBtns(-1)}</div>
+        <button id="dShow" onclick="$('dAns').style.display='block';this.style.display='none'">👀 答えを見る（まず頭の中で思い出す）</button>`;
+    } else {
+      S.cur = d.gen();                                    // 今回の数値で作った問題
+      h += `<div class="qtext">${S.cur.q}</div>
+        <div style="display:flex;gap:.4rem;align-items:center"><input id="dIn" type="number" step="any" placeholder="答え" style="flex:1" onkeydown="if(event.key==='Enter')judge()"><span>${S.cur.u}</span><button onclick="judge()">判定</button></div>
+        <button class="sub" style="margin-top:.4rem" onclick="judge(true)">分からない → 解き方を見る</button>
+        <div id="dRes"></div>`;
+    }
+  }
+  $('mBody').innerHTML = h;
+  if (x.k === 'p'){
+    $('eCat').onchange = () => { ensureRec(x.key).cat = $('eCat').value; save(); };
+    $('eType').onchange = () => { const r = ensureRec(x.key); r.type = $('eType').value; replay(r, r.type); save(); };
+  }
+  const inp = $('dIn'); if (inp) setTimeout(() => inp.focus(), 50);
+}
+function judge(giveUp){                                   // 計算ドリルの判定（±2%以内で正解）
+  if (!S || !S.cur || $('dRes').innerHTML) return;
+  const v = parseFloat($('dIn').value), a = S.cur.a;
+  const ok = !giveUp && !isNaN(v) && Math.abs(v - a) <= Math.max(Math.abs(a)*0.02, 0.01);
+  $('dRes').innerHTML = `<div class="ans"><div class="${ok ? 'ok' : 'ng'}">${ok ? '⭕ 正解！' : '❌ ' + (giveUp ? '解き方を確認しよう' : '不正解')}　正答：${f2(a)} ${S.cur.u}</div>
+    <div style="margin-top:.4rem;font-size:.95rem">${S.cur.s}</div></div>
+    <small style="color:var(--dim)">自己採点を選んでください（迷わず解けたら◎）</small>${gradeBtns(ok ? 2 : 0)}`;
+}
+function gradeCur(g){
+  const x = S.q[S.i]; let cq = false;
+  if (x.k === 'p'){
+    const same = D.rec[x.key] && D.rec[x.key].hist.find(h => h.d === today); // 今日すでに記録があるか
+    if (same){
+      if (!confirm(`⚠️ 【${qLabel(x.key)}】は今日すでに「${GR[same.g].s} ${GR[same.g].n}」で記録されています。\n今日の記録を今回の「${GR[g].s} ${GR[g].n}」で上書き更新しますか？（ダブり防止）`)){
+        return;
+      }
+      subLog(same.g, today);
+      D.rec[x.key].hist = D.rec[x.key].hist.filter(h => h !== same);
+    }
+    const rs = $('eReason').value;
+    cq = gradeP(x.key, g, rs === REASONS[0] ? '' : rs, $('eMemo').value.trim());
+  } else cq = gradeD(x.id, g);
+  save(); S.n++; if (g >= 2) S.ok++;
+  if (cq){ S.cq++; toast('🏆 苦手克服！ 記憶に定着しました！'); }
+  else if (g === 0) toast('× 明日もう一度出題します。メモを残そう！');
+  S.i++;
+  if (S.i < S.q.length) showItem();
+  else {
+    $('mHead').textContent = S.title + '　完了';
+    $('mBody').innerHTML = `<div style="text-align:center;padding:1rem"><div style="font-size:3rem">🤘</div>
+      <div class="qtitle">${S.n}問 完了！</div><p>正解 ${S.ok} / ${S.n}（${Math.round(S.ok/S.n*100)}%）${S.cq ? `<br>🏆 克服 ${S.cq}問！` : ''}</p>
+      <p style="color:var(--dim);font-size:.9rem">間違えた問題は翌日、正解した問題は忘れかけた頃に自動で出題されます。</p>
+      <button onclick="closeModal()">閉じる</button></div>`;
+  }
+}
+
+// ============================================================
+// タイマー・設定・バックアップ
+// ============================================================
+let tmId = null, tmEnd = 0;                               // タイマーID・終了時刻
+function timerStart(){
+  timerStop(); tmEnd = Date.now() + 90*60*1000;
+  tmId = setInterval(() => {
+    const r = Math.max(0, tmEnd - Date.now()), m = Math.floor(r/60000), s = Math.floor(r/1000) % 60; // 残り時間
+    $('timer').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    if (r <= 0){ timerStop(); toast('⏰ 90分終了！マップで1問ずつ記録しよう'); }
+  }, 500);
+  toast(`⏱ ${$('tmYear').value} 本番演習スタート！`);
+}
+function timerStop(){ clearInterval(tmId); tmId = null; }
+function saveSet(){
+  if ($('setExam').value) D.set.exam = $('setExam').value;
+  D.set.newPerDay = Math.max(0, Math.min(30, +$('setNew').value || 0));
+  if ($('setR1').value) D.set.r1 = $('setR1').value;
+  save(); render(); toast('💾 設定を保存しました');
+}
+function exportData(){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(D)], { type:'application/json' }));
+  a.download = 'denken3_kikai_backup_' + today + '.json'; a.click();
+}
+function importData(e){
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { try{ const d = JSON.parse(r.result); if (!d.rec) throw 0; localStorage.setItem(KEY, r.result); D = load(); render(); toast('📂 読み込み完了'); }catch(x){ toast('ファイルが不正です'); } };
+  r.readAsText(f);
+}
+function resetAll(){ if (confirm('全データを削除します。よろしいですか？（元に戻せません）')){ D = JSON.parse(JSON.stringify(INIT)); save(); render(); toast('削除しました'); } }
+
+// ===== PC ⇔ スマホ引き継ぎコード機能 =====
+function copySyncCode(){                                  // 引き継ぎコードをクリップボードへコピー
+  try{
+    const code = btoa(unescape(encodeURIComponent(JSON.stringify(D)))); // UTF-8対応Base64コード
+    if ($('syncBox')) $('syncBox').value = code;
+    navigator.clipboard?.writeText(code);
+    toast('📋 引き継ぎコードをコピーしました！LINEやメールでスマホへ送れます');
+  }catch(e){ toast('コピーに失敗しました'); }
+}
+function pasteSyncCode(){                                 // 引き継ぎコードからデータを復元
+  try{
+    const raw = ($('syncBox') ? $('syncBox').value : '').trim(); // 入力されたコード文字列
+    if (!raw){ toast('引き継ぎコードを貼り付けてください'); return; }
+    const json = raw.startsWith('{') ? raw : decodeURIComponent(escape(atob(raw))); // JSON文字列へ変換
+    const d = JSON.parse(json);                           // 復元オブジェクト
+    if (!d || !d.rec) throw 0;
+    localStorage.setItem(KEY, JSON.stringify(d));
+    D = load(); render();
+    toast('📥 引き継ぎコードから学習データを復元しました！');
+  }catch(e){ toast('⛔ コードが正しくありません'); }
+}
+
+// ===== オフラインPWA Service Worker登録 =====
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
+// ============================================================
+// 初期化
+// ============================================================
+document.querySelectorAll('#nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('#nav button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === 'tab-' + b.dataset.t));
+  curTab = b.dataset.t; render(); scrollTo(0, 0);
+});
+$('wkCat').innerHTML = '<option value="">すべて</option>' + CATS.map(c => `<option>${c}</option>`).join('');
+$('tmYear').innerHTML = YEARS.map(y => `<option>${y}</option>`).join('');
+$('qkDate').value = today;
+$('mpDate').value = today;
+$('qkYear').innerHTML = YEARS.map(y => `<option>${y}</option>`).join('');
+$('mpYear').innerHTML = YEARS.map(y => `<option>${y}</option>`).join('');
+$('qkNum').innerHTML = Array.from({ length:QN }, (_, i) => `<option value="${i+1}">問${i+1}${i+1 >= 15 ? '（B問題・10点）' : '（A問題・5点）'}</option>`).join('');
+$('qkCat').innerHTML = CATS.map(c => `<option>${c}</option>`).join('');
+$('qkReason').innerHTML = REASONS.map(r => `<option>${r}</option>`).join('');
+$('lgYear').innerHTML = '<option value="">すべての年度</option>' + YEARS.map(y => `<option>${y}</option>`).join('');
+$('lgNum').innerHTML = '<option value="">すべての番号</option>' + Array.from({ length:QN }, (_, i) => `<option value="${i+1}">問${i+1}${i+1 >= 15 ? '(B)' : ''}</option>`).join('');
+$('lgCat').innerHTML = '<option value="">すべての分野</option>' + CATS.map(c => `<option>${c}</option>`).join('');
+$('lgReason').innerHTML = '<option value="">すべての原因</option>' + REASONS.slice(1).map(r => `<option>${r}</option>`).join('');
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('modal').classList.contains('on')) closeModal(); });
+render();
+</script>
+</body>
+</html>

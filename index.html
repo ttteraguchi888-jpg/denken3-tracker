@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#cc0000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<title>電験三種 DAILY LOG | 60代合格トラッカー</title>
+<style>
+  /* 色の定義（黒×赤） */
+  :root{--bk:#0a0a0a;--card:#161616;--bd:#2c2c2c;--red:#cc0000;--rb:#ff1a1a;--rd:#7a0000;--tx:#f0f0f0;--dim:#8f8f8f;--gd:#e0b84c}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bk);color:var(--tx);font-family:"Noto Sans JP","Yu Gothic",sans-serif;line-height:1.7;font-size:17px}
+  header{text-align:center;padding:2rem 1rem 1.5rem;background:radial-gradient(ellipse at 50% 0,rgba(204,0,0,.35),transparent 70%);border-bottom:2px solid var(--red)}
+  header h1{font-size:clamp(1.6rem,5vw,2.6rem);font-weight:900}
+  header h1 em{font-style:normal;color:var(--rb);text-shadow:0 0 20px var(--red)}
+  #msg{margin-top:.6rem;color:var(--gd);font-weight:700}
+  main{max-width:1100px;margin:auto;padding:1rem}
+  .panel{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--red);border-radius:4px;padding:1.2rem;margin-bottom:1.2rem}
+  .panel h2{font-size:1.15rem;margin-bottom:.8rem;color:var(--rb);letter-spacing:.05em}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem}
+  .stat{background:#000;border:1px solid var(--rd);padding:.8rem;text-align:center;border-radius:4px}
+  .stat b{display:block;font-size:2rem;color:var(--rb);text-shadow:0 0 12px rgba(204,0,0,.6);line-height:1.2}
+  .stat span{font-size:.8rem;color:var(--dim)}
+  .bar{height:18px;background:#000;border:1px solid var(--rd);border-radius:9px;overflow:hidden;margin:.4rem 0}
+  .bar div{height:100%;background:linear-gradient(90deg,var(--rd),var(--rb));width:0;transition:width 1s}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem}
+  label{display:block;font-size:.8rem;color:var(--dim)}
+  input,select,textarea{width:100%;background:#000;color:var(--tx);border:1px solid var(--rd);padding:.5rem;border-radius:3px;font-size:1rem;font-family:inherit}
+  button{background:var(--red);color:#fff;border:0;padding:.7rem 1.4rem;font-weight:700;cursor:pointer;border-radius:3px;font-size:1rem}
+  button:hover{background:var(--rb)}
+  button.sub{background:#2a2a2a;border:1px solid var(--rd)}
+  button.sub:hover{background:var(--rd)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+  @media(max-width:800px){.two{grid-template-columns:1fr}}
+  canvas{width:100%;height:200px;background:#000;border:1px solid var(--bd);border-radius:4px}
+  #heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,1fr);gap:3px;overflow-x:auto}
+  #heat i{width:18px;height:18px;border-radius:3px;background:#1d1d1d;display:block}
+  .l1{background:#4a0000!important}.l2{background:#8a0000!important}.l3{background:#cc0000!important}.l4{background:#ff3030!important;box-shadow:0 0 6px var(--red)}
+  .badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem}
+  .badge{text-align:center;padding:.6rem .3rem;border:1px solid var(--bd);border-radius:4px;opacity:.35;filter:grayscale(1);font-size:.8rem}
+  .badge.on{opacity:1;filter:none;border-color:var(--gd);background:rgba(224,184,76,.08);box-shadow:0 0 10px rgba(224,184,76,.25)}
+  .badge div{font-size:1.8rem}
+  .item{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid var(--bd);font-size:.95rem}
+  .item input[type=checkbox]{width:22px;height:22px;flex:none;accent-color:var(--red)}
+  .item.done span{text-decoration:line-through;color:var(--dim)}
+  .log{padding:.6rem;border-bottom:1px solid var(--bd);font-size:.92rem}
+  .log small{color:var(--dim)}
+  .log button{padding:.1rem .6rem;font-size:.75rem;float:right}
+  .week{padding:.4rem .6rem;border-left:3px solid var(--bd);margin:.3rem 0;font-size:.9rem}
+  .week.now{border-left-color:var(--rb);background:rgba(204,0,0,.15);font-weight:700}
+  .week.past{color:var(--dim)}
+  #toast{position:fixed;top:1rem;left:50%;transform:translate(-50%,-200%);background:linear-gradient(135deg,var(--rd),var(--red));padding:1rem 2rem;border-radius:6px;font-weight:700;z-index:9;transition:.5s;box-shadow:0 0 30px var(--red);text-align:center}
+  #toast.show{transform:translate(-50%,0)}
+  textarea#share{height:130px}
+  footer{text-align:center;color:var(--dim);padding:1.5rem;font-size:.8rem}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<header>
+  <h1>電験三種 <em>DAILY LOG</em></h1>
+  <div id="msg"></div>
+  <a href="kakomon.html" style="display:inline-block;margin-top:.8rem;background:var(--red);color:#fff;padding:.5rem 1.2rem;border-radius:3px;font-weight:700;text-decoration:none;box-shadow:0 0 15px var(--red)">⚙ 機械 過去問トレーニング（H10〜R8・苦手克服）へ</a>
+</header>
+<main>
+
+<!-- 成績サマリー -->
+<div class="panel">
+  <h2>🔥 あなたの成果</h2>
+  <div class="stats">
+    <div class="stat"><b id="sStreak">0</b><span>連続学習日数</span></div>
+    <div class="stat"><b id="sTotal">0</b><span>累計学習時間(h)</span></div>
+    <div class="stat"><b id="sDays">0</b><span>学習した日数</span></div>
+    <div class="stat"><b id="sAcc">-</b><span>問題の正答率</span></div>
+    <div class="stat"><b id="sLv">-</b><span>称号</span></div>
+  </div>
+  <div style="margin-top:1rem">合格までの総学習時間：<span id="goalTxt"></span>
+    <div class="bar"><div id="goalBar"></div></div></div>
+  <div>今週の目標（週<input id="weekGoal" type="number" value="7" style="width:60px;display:inline"> 時間）：<span id="weekTxt"></span>
+    <div class="bar"><div id="weekBar"></div></div></div>
+</div>
+
+<!-- 記録入力 -->
+<div class="panel">
+  <h2>✍️ 今日の学習を記録する</h2>
+  <div class="row">
+    <div><label>日付</label><input type="date" id="fDate"></div>
+    <div><label>学習時間（分）</label><input type="number" id="fMin" value="60" min="1"></div>
+    <div><label>科目・単元</label>
+      <select id="fSub">
+        <option>理論：オームの法則・直流</option><option>理論：直列・並列応用</option><option>理論：静電気・コンデンサ</option>
+        <option>理論：磁気</option><option>理論：交流（XL・XC・共振）</option><option>理論：三相・電子回路</option>
+        <option>機械：変圧器</option><option>機械：誘導機</option><option>機械：同期機</option><option>機械：直流機</option>
+        <option>機械：パワエレ・制御</option><option>過去問演習</option><option>模試</option><option>暗記カード</option>
+      </select></div>
+    <div><label>使った学習法</label>
+      <select id="fMet"><option>過去問3周</option><option>公式カード</option><option>ファインマン法</option><option>白紙再現</option><option>間違いノート</option><option>ウォーキング学習</option><option>模試</option></select></div>
+    <div><label>解いた問題数</label><input type="number" id="fQ" value="0" min="0"></div>
+    <div><label>正解数</label><input type="number" id="fOk" value="0" min="0"></div>
+    <div><label>集中度（1〜5）</label><select id="fFoc"><option>5</option><option>4</option><option selected>3</option><option>2</option><option>1</option></select></div>
+  </div>
+  <label style="margin-top:.7rem">今日の気づき・できるようになったこと</label>
+  <textarea id="fMemo" rows="2" placeholder="例：XCの公式が白紙で書けた！"></textarea>
+  <div style="margin-top:.8rem"><button onclick="kiroku()">🤘 記録する！</button></div>
+</div>
+
+<div class="two">
+  <!-- 今日の復習 -->
+  <div class="panel">
+    <h2>🔁 今日の復習（間隔反復：1・3・7・14・30日後）</h2>
+    <div id="reviews"></div>
+  </div>
+  <!-- ロードマップ -->
+  <div class="panel">
+    <h2>🗺️ ロードマップ（36週）</h2>
+    <label>学習開始日</label><input type="date" id="startDate" onchange="saveStart()">
+    <div id="roadmap" style="max-height:330px;overflow-y:auto;margin-top:.6rem"></div>
+  </div>
+</div>
+
+<div class="two">
+  <div class="panel"><h2>📊 直近14日の学習時間（分）</h2><canvas id="chart" height="200"></canvas></div>
+  <div class="panel"><h2>📈 正答率の推移</h2><canvas id="chart2" height="200"></canvas></div>
+</div>
+
+<div class="panel"><h2>🟥 学習カレンダー（直近15週）</h2><div id="heat"></div></div>
+
+<div class="panel"><h2>🏆 バッジ</h2><div class="badges" id="badges"></div></div>
+
+<!-- 共有 -->
+<div class="panel">
+  <h2>📣 成果を見せる（家族・友人・SNSに共有してやる気UP）</h2>
+  <textarea id="share" readonly></textarea>
+  <div style="margin-top:.6rem;display:flex;gap:.6rem;flex-wrap:wrap">
+    <button onclick="copyShare()">📋 コピーする</button>
+    <button class="sub" onclick="exportData()">💾 バックアップ保存</button>
+    <button class="sub" onclick="document.getElementById('imp').click()">📂 読み込み</button>
+    <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
+  </div>
+</div>
+
+<div class="panel"><h2>📒 記録履歴</h2><div id="logs"></div></div>
+
+</main>
+<footer>データはこのブラウザ内（localStorage）に保存されます。定期的にバックアップしてください。</footer>
+
+<script>
+// ===== 定数・設定 =====
+const KEY = 'denken3_tracker_v1';          // 保存キー
+const GOAL_H = 450;                        // 合格目標の総学習時間[h]
+const REVIEW_DAYS = [1,3,7,14,30];         // 復習間隔[日]
+const ROADMAP = [                          // ロードマップ（開始週, 終了週, 内容）
+  [1,2,'オームの法則・直流基礎・単位変換'],[3,4,'直列・並列・ブリッジ・テブナン'],
+  [5,6,'静電気・コンデンサ・磁気'],[7,9,'交流回路（XL・XC・共振・三相）'],
+  [10,12,'電子回路＋理論の過去問1周目'],[13,20,'機械：変圧器→誘導機→同期機→直流機→パワエレ'],
+  [21,30,'理論＋機械の過去問2〜3周目'],[31,36,'模試・弱点潰し・暗記総チェック']
+];
+const BADGES = [                           // バッジ定義（絵文字, 名前, 判定関数）
+  ['🌱','初記録',s=>s.n>=1],['🔥','3日連続',s=>s.best>=3],['⚡','7日連続',s=>s.best>=7],
+  ['🌋','14日連続',s=>s.best>=14],['👑','30日連続',s=>s.best>=30],
+  ['⏱️','累計10時間',s=>s.h>=10],['📘','累計50時間',s=>s.h>=50],['📗','累計100時間',s=>s.h>=100],
+  ['📕','累計200時間',s=>s.h>=200],['🏯','累計450時間',s=>s.h>=450],
+  ['💪','1日90分以上',s=>s.maxDay>=90],['🎯','正答率80%超(20問〜)',s=>s.q>=20&&s.acc>=80],
+  ['🧮','累計100問',s=>s.q>=100],['🧠','累計500問',s=>s.q>=500]
+];
+const TITLES = [[0,'見習い電工'],[10,'電験ルーキー'],[50,'回路の探究者'],[100,'リアクタンス使い'],[200,'機械マスター'],[350,'合格圏の猛者'],[450,'電験三種の覇者']];
+const MSGS = ['今日の1行が、合格への1歩。','60代の継続力は最強の武器！','昨日の自分を超えろ。🤘','続けた人だけが見える景色がある。','コツコツは裏切らない。'];
+
+// ===== データ読み書き =====
+const INIT = '{"logs":[],"rev":{},"start":"","wgoal":7}';   // 初期データ
+let D;                                                     // 全データ
+try{ D = JSON.parse(localStorage.getItem(KEY) || INIT); }catch(e){ D = JSON.parse(INIT); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(D)); }catch(e){} }
+
+// ===== 日付ユーティリティ =====
+function ymd(d){ const z=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+function addDays(s,n){ const d=new Date(s+'T00:00:00'); d.setDate(d.getDate()+n); return ymd(d); }
+const today = ymd(new Date());  // 今日の日付
+
+// ===== 演出：トースト =====
+function toast(t){ const e=document.getElementById('toast'); e.innerHTML=t; e.classList.add('show'); setTimeout(()=>e.classList.remove('show'),3500); }
+
+// ===== 記録処理 =====
+function kiroku(){
+  const log = {                                           // 1件の学習記録
+    id: Date.now(), date: fDate.value, min: +fMin.value, sub: fSub.value, met: fMet.value,
+    q: +fQ.value, ok: Math.min(+fOk.value,+fQ.value), foc: +fFoc.value, memo: fMemo.value.trim()
+  };
+  if(!log.date || !(log.min>0)){ toast('日付と学習時間を入力してください'); return; }
+  const before = new Set(calc().got);                     // 記録前の獲得バッジ
+  D.logs.push(log);
+  save(); fMemo.value=''; fQ.value=0; fOk.value=0;
+  render();
+  const after = calc().got.filter(x=>!before.has(x));     // 新規獲得バッジ
+  if(after.length) toast('🏆 新バッジ獲得！<br>'+after.join(' / '));
+  else toast('🤘 記録完了！ '+log.min+'分 お疲れさま！');
+}
+function del(id){ if(confirm('この記録を削除しますか？')){ D.logs=D.logs.filter(l=>l.id!==id); save(); render(); } }
+
+// ===== 集計 =====
+function calc(){
+  const byDay = {};                                       // 日付ごとの学習分
+  let q=0, ok=0, min=0;                                   // 累計問題数・正解数・分
+  D.logs.forEach(l=>{ byDay[l.date]=(byDay[l.date]||0)+l.min; q+=l.q; ok+=l.ok; min+=l.min; });
+  const days = Object.keys(byDay).sort();                 // 学習した日の一覧
+  let streak=0, c = byDay[today]? today : addDays(today,-1); // 連続日数（今日未記録なら昨日から数える）
+  while(byDay[c]){ streak++; c=addDays(c,-1); }
+  let best=0, run=0, prev=null;                           // 最長連続日数
+  days.forEach(d=>{ run = (prev && addDays(prev,1)===d)? run+1 : 1; best=Math.max(best,run); prev=d; });
+  const s = { n:D.logs.length, h:min/60, q, acc:q?ok/q*100:0, best, maxDay:Math.max(0,...Object.values(byDay)) };
+  return { byDay, days, streak, min, q, ok, s, got: BADGES.filter(b=>b[2](s)).map(b=>b[1]) };
+}
+
+// ===== 復習予定（記録した単元ごとに1・3・7・14・30日後） =====
+function reviewList(){
+  const list=[];                                          // 今日やる復習
+  D.logs.forEach(l=>{
+    REVIEW_DAYS.forEach(n=>{
+      const due = addDays(l.date,n), k = l.id+'_'+n;      // 復習予定日・識別キー
+      if(due<=today && !D.rev[k+'x'] && due>=addDays(today,-3)) list.push({k, due, n, sub:l.sub, late:due<today});
+    });
+  });
+  return list;
+}
+function chkRev(k){ D.rev[k+'x']=1; save(); render(); toast('✅ 復習完了！記憶が強くなった！'); }
+
+// ===== ロードマップ =====
+function saveStart(){ D.start=startDate.value; save(); render(); }
+function drawRoadmap(){
+  const el = document.getElementById('roadmap');
+  if(!D.start){ el.innerHTML='<div class="week">開始日を設定すると現在の週が表示されます</div>'; return; }
+  const w = Math.floor((new Date(today)-new Date(D.start))/(7*864e5))+1; // 現在の週番号
+  el.innerHTML = ROADMAP.map(r=>{
+    const cls = w>r[1]?'past':(w>=r[0]?'now':'');
+    return `<div class="week ${cls}">${w>r[1]?'✅':(w>=r[0]?'▶':'　')} 第${r[0]}〜${r[1]}週：${r[2]}</div>`;
+  }).join('') + `<div class="week">現在：第${Math.max(1,w)}週</div>`;
+}
+
+// ===== グラフ描画 =====
+function bars(cv, vals, labels, max, unit){
+  const g=cv.getContext('2d'), W=cv.width=cv.clientWidth*2, H=cv.height=400; // 解像度調整（高さは固定）
+  g.clearRect(0,0,W,H); const bw=W/vals.length;
+  vals.forEach((v,i)=>{
+    const h = max? (v/max)*(H-50):0;                      // 棒の高さ
+    const gr=g.createLinearGradient(0,H-h,0,H); gr.addColorStop(0,'#ff1a1a'); gr.addColorStop(1,'#660000');
+    g.fillStyle = v? gr : '#222'; g.fillRect(i*bw+bw*.15, H-30-Math.max(h,3), bw*.7, Math.max(h,3));
+    g.fillStyle='#aaa'; g.font='20px sans-serif'; g.textAlign='center';
+    g.fillText(labels[i], i*bw+bw/2, H-8);
+    if(v){ g.fillStyle='#fff'; g.fillText(Math.round(v)+unit, i*bw+bw/2, H-36-h); }
+  });
+}
+function drawCharts(c){
+  const v=[], lb=[];
+  for(let i=13;i>=0;i--){ const d=addDays(today,-i); v.push(c.byDay[d]||0); lb.push(d.slice(8)); }
+  bars(document.getElementById('chart'), v, lb, Math.max(60,...v), '');
+  const wk={};                                            // 週ごとの正答率
+  D.logs.forEach(l=>{ if(!l.q) return; const k=addDays(l.date,-new Date(l.date).getDay()); wk[k]=wk[k]||[0,0]; wk[k][0]+=l.q; wk[k][1]+=l.ok; });
+  const ks=Object.keys(wk).sort().slice(-8);              // 直近8週
+  bars(document.getElementById('chart2'), ks.map(k=>wk[k][1]/wk[k][0]*100), ks.map(k=>k.slice(5)), 100, '%');
+}
+
+// ===== カレンダー(ヒートマップ) =====
+function drawHeat(c){
+  const el=document.getElementById('heat'); el.innerHTML='';
+  const start = addDays(today, -(15*7-1) - new Date(today).getDay()); // 開始日（日曜始まり）
+  for(let i=0;i<15*7+new Date(today).getDay();i++){
+    const d=addDays(start,i), m=c.byDay[d]||0;            // 日付・その日の分
+    const lv = m==0?0:m<30?1:m<60?2:m<90?3:4;             // 色の濃さ
+    el.insertAdjacentHTML('beforeend',`<i class="l${lv}" title="${d}：${m}分"></i>`);
+  }
+}
+
+// ===== 共有テキスト =====
+function makeShare(c){
+  const lv = TITLES.filter(t=>c.s.h>=t[0]).pop()[1];      // 現在の称号
+  share.value = `【電験三種 挑戦中！60代の学習記録】\n🔥 連続学習：${c.streak}日（最長${c.s.best}日）\n⏱️ 累計：${c.s.h.toFixed(1)}時間 / 目標${GOAL_H}時間（${Math.min(100,c.s.h/GOAL_H*100).toFixed(1)}%）\n🧮 解いた問題：${c.q}問（正答率${c.q?Math.round(c.ok/c.q*100):0}%）\n🏆 称号：${lv}　バッジ：${c.got.length}/${BADGES.length}\n#電験三種 #60代の挑戦 #毎日勉強`;
+}
+function copyShare(){ share.select(); navigator.clipboard?.writeText(share.value); toast('📋 コピーしました！家族や友人に送ろう'); }
+
+// ===== バックアップ =====
+function exportData(){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(D)],{type:'application/json'}));
+  a.download='denken3_backup_'+today+'.json'; a.click();
+}
+function importData(e){
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ D=JSON.parse(r.result); save(); render(); toast('読み込み完了'); }catch(x){ toast('ファイルが不正です'); } };
+  r.readAsText(f);
+}
+
+// ===== 画面描画 =====
+function render(){
+  const c=calc();
+  sStreak.textContent=c.streak; sTotal.textContent=c.s.h.toFixed(1); sDays.textContent=c.days.length;
+  sAcc.textContent=c.q? Math.round(c.ok/c.q*100)+'%':'-';
+  sLv.textContent=TITLES.filter(t=>c.s.h>=t[0]).pop()[1]; sLv.style.fontSize='1.1rem';
+  const gp=Math.min(100,c.s.h/GOAL_H*100);                // 総合進捗[%]
+  goalTxt.textContent=c.s.h.toFixed(1)+' / '+GOAL_H+' 時間（'+gp.toFixed(1)+'%）'; goalBar.style.width=gp+'%';
+  const wkStart=addDays(today,-new Date(today).getDay()); // 今週の開始日
+  let wm=0; D.logs.forEach(l=>{ if(l.date>=wkStart && l.date<=today) wm+=l.min; }); // 今週の学習分
+  weekGoal.value=D.wgoal; const wp=Math.min(100,wm/60/D.wgoal*100);
+  weekTxt.textContent=(wm/60).toFixed(1)+'h（'+Math.round(wp)+'%）'+(wp>=100?' 🎉達成！':''); weekBar.style.width=wp+'%';
+  const rv=reviewList();
+  reviews.innerHTML = rv.length? rv.map(r=>`<div class="item"><input type="checkbox" onchange="chkRev('${r.k}')"><span>${r.sub}（${r.n}日後復習）${r.late?'<small style="color:var(--rb)"> ※期限超過</small>':''}</span></div>`).join('') : '<div class="item"><span style="color:var(--dim)">今日の復習はありません。学習を記録すると予定が自動で作られます。</span></div>';
+  drawRoadmap(); drawCharts(c); drawHeat(c); makeShare(c);
+  badges.innerHTML = BADGES.map(b=>`<div class="badge ${c.got.includes(b[1])?'on':''}"><div>${b[0]}</div>${b[1]}</div>`).join('');
+  logs.innerHTML = D.logs.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,50).map(l=>
+    `<div class="log"><button class="sub" onclick="del(${l.id})">削除</button><b>${l.date}</b>　${l.sub}　<span style="color:var(--rb)">${l.min}分</span><br><small>${l.met}｜${l.q?l.ok+'/'+l.q+'問正解｜':''}集中度${'★'.repeat(l.foc)}</small>${l.memo?'<br>💬 '+l.memo.replace(/</g,'&lt;'):''}</div>`).join('') || '<div class="log" style="color:var(--dim)">まだ記録がありません。最初の1件を記録しよう！</div>';
+}
+
+// ===== 初期化 =====
+fDate.value=today; startDate.value=D.start||'';
+weekGoal.onchange=()=>{ D.wgoal=Math.max(1,+weekGoal.value||7); save(); render(); };
+msg.textContent=MSGS[new Date().getDate()%MSGS.length];
+render();
+addEventListener('resize',render);
+if('serviceWorker' in navigator){ window.addEventListener('load',()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }); }
+</script>
+</body>
+</html>
